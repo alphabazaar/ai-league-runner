@@ -8,11 +8,15 @@ name: League runner
 # models, timings and the decisions' fields.
 #
 # Each weekday the League's runner bots play at 6:33-6:45 PM ET and their jobs close by 7:15 PM ET. Cron is UTC:
-# 21:07 is 5:07 PM in daylight time (4:07 PM in standard time), 22:07 is 5:07 PM in standard time (6:07 PM in daylight
-# time), so a run is up from about 5 PM ET in either season, well before the jobs come; the others are backups, since
-# GitHub can start a scheduled run late or skip it at busy times. The concurrency group keeps one run at a time; a run
-# that starts after the hard stop (7:20 PM ET), or finds every model's job done in today's record, does nothing.
+# 21:07 is 5:07 PM in daylight time and 4:07 PM in standard time, so the first run is up from about 4-5 PM ET in either
+# season, well before the jobs come; 21:37 and 22:07 (5:07 PM in standard time, 6:07 PM in daylight time) are backups,
+# since GitHub can start a scheduled run late or skip it at busy times. The concurrency group keeps one run at a time;
+# a run that starts after the hard stop (7:20 PM ET), or finds every model's job done in today's record, does nothing.
 # GitHub registers the schedule when this file changes on main.
+#
+# Main holds only code and is meant to be protected (README: Setting up): the API trusts this file on main, so nobody
+# but a reviewed change should be able to touch it. The day's record goes to the `records` branch; the record job's
+# token can write branches, and the protection rule is what keeps it off main.
 
 on:
   schedule:
@@ -38,7 +42,7 @@ concurrency:
 
 jobs:
   plan:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 5
     permissions:
       contents: read
@@ -50,6 +54,13 @@ jobs:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
         with:
           persist-credentials: false
+      - name: Today's record so far (the records branch, if it has one)
+        run: |
+          mkdir -p "$RUNNER_TEMP/records"
+          if git fetch -q --depth 1 origin records 2>/dev/null; then
+            git archive FETCH_HEAD runs | tar -x -C "$RUNNER_TEMP/records" 2>/dev/null || true
+          fi
+
       - name: Which models run
         id: plan
         env:
@@ -58,13 +69,14 @@ jobs:
         run: |
           flag=""
           if [ "$HEARTBEAT_ONLY" = "true" ]; then flag="--heartbeat-only"; fi
-          python3 runner/league_runner.py plan --models "$MODELS" $flag >> "$GITHUB_OUTPUT"
+          python3 runner/league_runner.py plan --models "$MODELS" --runs "$RUNNER_TEMP/records/runs" $flag \
+            >> "$GITHUB_OUTPUT"
 
   serve:
     name: ${{ matrix.model }}
     needs: plan
     if: needs.plan.outputs.skip == 'false'
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 240
     permissions:
       contents: read
@@ -132,8 +144,10 @@ jobs:
           CTX: ${{ steps.spec.outputs.ctx }}
           SERVER_ARGS: ${{ steps.spec.outputs.server_args }}
         run: |
-          # $SERVER_ARGS is unquoted on purpose (one word per flag); league_runner.py checks each against a pattern
-          LD_LIBRARY_PATH="$DIR/llama" nohup "$DIR/llama/llama-server" -m "$DIR/$FILE" --alias "$MODEL" \
+          # $SERVER_ARGS is unquoted on purpose (one word per flag); league_runner.py checks each against a pattern.
+          # llama-server gets no way to ask GitHub for the run's OIDC token: only league_runner.py signs in.
+          env -u ACTIONS_ID_TOKEN_REQUEST_TOKEN -u ACTIONS_ID_TOKEN_REQUEST_URL LD_LIBRARY_PATH="$DIR/llama" \
+            nohup "$DIR/llama/llama-server" -m "$DIR/$FILE" --alias "$MODEL" \
             --host 127.0.0.1 --port 8080 -c "$CTX" --parallel 1 --jinja $SERVER_ARGS \
             > "$DIR/llama-server.log" 2>&1 &
           echo "llama-server started (its log stays on this machine; it is shown only if the model never gets going)"
@@ -159,12 +173,21 @@ jobs:
   record:
     needs: [plan, serve]
     if: always() && needs.plan.outputs.skip == 'false'
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 10
     permissions:
-      contents: write  # the day's run record, committed to runs/
+      contents: write  # the day's run record, pushed to the records branch (main is protected: README)
+      actions: write  # keeps this workflow's schedule enabled (see the last step)
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
+        with:
+          persist-credentials: false  # main's checkout can't push anything
+
+      - name: The records branch
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
+        with:
+          ref: records  # created once by hand (README: Setting up)
+          path: records
 
       - name: The models' records
         continue-on-error: true  # no record at all (every job failed early) still records the run
@@ -177,9 +200,10 @@ jobs:
       - name: Today's record
         env:
           DAY: ${{ needs.plan.outputs.day }}
-        run: python3 runner/league_runner.py record --day "$DAY" --records record --runs runs
+        run: python3 runner/league_runner.py record --day "$DAY" --records record --runs records/runs
 
-      - name: Commit it
+      - name: Commit it to the records branch
+        working-directory: records
         env:
           DAY: ${{ needs.plan.outputs.day }}
         run: |
@@ -192,7 +216,14 @@ jobs:
           fi
           git commit -q -m "Run record $DAY (run $GITHUB_RUN_ID)"
           for attempt in 1 2 3; do
-            if git pull -q --rebase && git push -q; then exit 0; fi
+            if git pull -q --rebase origin records && git push -q origin HEAD:records; then exit 0; fi
             sleep $((attempt * 5))
           done
           exit 1
+
+      - name: Keep the schedule on
+        # GitHub turns off a public repository's scheduled workflows after 60 days without activity, and commits to
+        # the records branch may not count: enabling the workflow again each run keeps it on
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh api -X PUT "repos/$GITHUB_REPOSITORY/actions/workflows/league-runner.yml/enable" --silent || true

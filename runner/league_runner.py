@@ -9,18 +9,20 @@ Every weekday evening, for each model in models.json (the workflow runs one job 
 2. `spec`: the model's pinned GGUF (repository, revision, file, sha256) and the pinned llama.cpp build, for the
    workflow's download steps, which check each file's sha256 before anything runs.
 3. `serve`: with llama-server running the GGUF, a self-test, then a heartbeat to the League's API naming the GGUF's
-   sha256 and the self-test's result: the League plays a model only while the runner vouches for it. Then the day's
+   sha256 and the self-test's result: a model's first passing self-test starts its bot, and the League writes the
+   bot's job only on a day the runner vouches for the model (else the bot's day is a "No decision"). Then the day's
    jobs: each job's messages and request options go to llama-server exactly as the League wrote them (the same ones
    every other League model gets), and the reply goes back. The first answer counts and nothing is run twice. It stops
    once its model's job for the day is closed, when no League bot plays the model today, or at the hard stop.
 4. `record`: the run's record (job ids, models, sha256s, timings and decisions; never a prompt or a reply's text) into
-   runs/<day>.json, which the workflow commits: a public trail, and the activity that keeps GitHub from switching off
-   a public repository's schedule after 60 quiet days.
+   runs/<day>.json on the repository's `records` branch, which the workflow commits there (never to main): a public
+   trail. `plan` reads the day's record from that branch.
 
 No key anywhere: the API checks the workflow's GitHub Actions OIDC token, which this script asks GitHub for
 (ACTIONS_ID_TOKEN_REQUEST_URL, with the API as the audience) for each call. The prompts carry licensed headlines and
 these logs are public, so nothing here prints a job's messages, the model's reply or reasoning, or a token: only job
-ids, models, timings and the decision's fields (ticker, action, size, horizon).
+ids, models, timings and the decision's fields (ticker, action, size, horizon). What the League's public run logs show
+from this runner (the llama.cpp build, an error) is plain text in the shapes the API accepts (plain, build_words).
 """
 from __future__ import annotations
 
@@ -86,13 +88,16 @@ class RunnerError(Exception):
 # --- Config ---------------------------------------------------------------------------------------------------------
 
 _SHA256 = re.compile(r"^[0-9a-f]{64}$")
+_COMMIT = re.compile(r"^[0-9a-f]{40}$")
+_REPO = re.compile(r"^[A-Za-z0-9][A-Za-z0-9._-]*/[A-Za-z0-9][A-Za-z0-9._-]*$")
 _FILE = re.compile(r"^[A-Za-z0-9._-]+\.gguf$")
 _SERVER_ARG = re.compile(r"^[-A-Za-z0-9_.=:]+$")
 _MODEL_ID = re.compile(r"^[a-z0-9._-]{1,39}$")
 
 
 def load_config(path: Path = MODELS_FILE) -> Dict[str, Any]:
-    """models.json, checked: each model's id, file, sha256 and server arguments (they reach a shell)."""
+    """models.json, checked: each model's id, file, sha256, repository and revision (a full commit: a branch or a tag
+    could move) and server arguments (they reach a shell)."""
     config = json.loads(Path(path).read_text(encoding="utf-8"))
     for spec in config.get("models") or []:
         model = spec.get("model", "")
@@ -100,12 +105,49 @@ def load_config(path: Path = MODELS_FILE) -> Dict[str, Any]:
             raise RunnerError(f"models.json: {model!r} must be its GGUF file's name in lower case")
         if not _FILE.match(spec.get("file", "")) or not _SHA256.match(spec.get("sha256", "")):
             raise RunnerError(f"models.json: {model} needs a .gguf file name and its sha256")
+        if not _REPO.match(str(spec.get("repo", ""))) or not _COMMIT.match(str(spec.get("revision", ""))):
+            raise RunnerError(f"models.json: {model} needs its Hugging Face repository and a full 40-hex commit as "
+                              f"its revision")
         if not all(isinstance(arg, str) and _SERVER_ARG.match(arg) for arg in spec.get("server_args") or []):
             raise RunnerError(f"models.json: {model}'s server_args may only hold flags and plain values")
     llama = config.get("llama_cpp") or {}
     if not _SHA256.match(llama.get("sha256", "")) or not str(llama.get("url", "")).startswith("https://github.com/"):
         raise RunnerError("models.json: llama_cpp needs its release asset's url and sha256")
+    if not _BUILD_TAG.match(str(llama.get("tag", ""))) or not _COMMIT.match(str(llama.get("commit", ""))):
+        raise RunnerError("models.json: llama_cpp needs its release tag (b12387) and its full commit")
     return config
+
+
+# --- What the League's public run logs show from here -------------------------------------------------------------
+
+_PLAIN_CHARS = re.compile(r"[^A-Za-z0-9 .,:;'()/_+=-]+")
+_BUILD_TAG = re.compile(r"^b[0-9]{1,6}$")
+_BUILD = re.compile(r"^b[0-9]{1,6}(-[0-9a-f]{7,40}| \([0-9a-f]{7,40}\))$")
+_FINISH = re.compile(r"^[a-z_]{1,20}$")
+PLAIN_CHARS = 160  # the API's limit for an error, a self-test's detail and the machine
+
+
+def plain(text: Any, limit: int = PLAIN_CHARS) -> str:
+    """One plain line the API accepts (its ERROR_PATTERN): letters, digits, spaces and . , : ; ' ( ) / _ + = -,
+    starting with a letter or digit, at most `limit` characters; anything else becomes a space."""
+    words = " ".join(_PLAIN_CHARS.sub(" ", str(text or "")).split())
+    words = re.sub(r"^[^A-Za-z0-9]+", "", words)[:limit].rstrip()
+    return words or "unknown"
+
+
+def build_words(reported: Optional[str], config: Mapping[str, Any]) -> str:
+    """The llama.cpp build for the API: llama-server's own build_info ("b12387-a956a852") when it has that shape, else
+    the pinned release's tag and short commit ("b12387 (a956a85)")."""
+    if isinstance(reported, str) and _BUILD.match(reported.strip()):
+        return reported.strip()
+    llama = config.get("llama_cpp") or {}
+    return f"{llama.get('tag')} ({str(llama.get('commit') or '')[:7]})"
+
+
+def finish_words(value: Any) -> Optional[str]:
+    """A finish_reason the API accepts (lower-case letters and _), else None."""
+    text = str(value or "").strip().lower()
+    return text if _FINISH.match(text) else None
 
 
 def model_spec(config: Mapping[str, Any], model: str) -> Dict[str, Any]:
@@ -372,7 +414,7 @@ def completion_parts(result: HttpResult) -> Dict[str, Any]:
     if isinstance(reasoning, str):
         timings["reasoning_chars"] = float(len(reasoning))
     return {"content": content if isinstance(content, str) else None,
-            "finish_reason": str(choice.get("finish_reason") or "")[:20] or None, "usage": usage, "timings": timings}
+            "finish_reason": finish_words(choice.get("finish_reason")), "usage": usage, "timings": timings}
 
 
 # --- The self-test ----------------------------------------------------------------------------------------------------
@@ -388,7 +430,8 @@ def run_self_test(server: LlamaServer, model: str, config: Mapping[str, Any],
     try:
         result = server.chat(request, timeout=SELF_TEST_TIMEOUT_SECONDS)
     except HttpFailure as e:
-        return {"ok": False, "seconds": round(clock() - started, 1), "detail": f"llama-server didn't answer ({e})"}
+        return {"ok": False, "seconds": round(clock() - started, 1),
+                "detail": plain(f"llama-server didn't answer ({e})")}
     seconds = round(clock() - started, 1)
     if result.status != 200:
         return {"ok": False, "seconds": seconds, "detail": f"llama-server answered {result.status}"}
@@ -472,11 +515,11 @@ class Runner:
         self.out = out
         self.heartbeat_only = heartbeat_only
         self.server_log = server_log
-        self.machine = machine or machine_words()
+        self.machine = plain(machine or machine_words())
         self.window = float(config.get("window_minutes") or 30) * 60
         self.started = clock()
         llama = config.get("llama_cpp") or {}
-        self.build = f"{llama.get('tag')} ({str(llama.get('commit') or '')[:7]})"
+        self.build = build_words(None, config)
         self.self_test: Dict[str, Any] = {"ok": False, "detail": "not run"}
         self.handled: set = set()
         self.pending: Dict[str, Dict[str, Any]] = {}  # replies the API hasn't taken yet: job id -> (body, entry)
@@ -500,7 +543,7 @@ class Runner:
             self._print_server_log()
             self._heartbeat()
             return self._finish(1)
-        self.build = self.server.build() or self.build
+        self.build = build_words(self.server.build(), self.config)
         self.record["llama_cpp"]["build"] = self.build
         self.self_test = run_self_test(self.server, self.model, self.config, self.clock)
         self.out(f"Self-test {'passed' if self.self_test['ok'] else 'failed'}: {self.self_test.get('detail')} "
@@ -535,11 +578,15 @@ class Runner:
             self.out(f"  {line[:300]}")
 
     def _heartbeat(self) -> bool:
+        test = {k: v for k, v in self.self_test.items()
+                if k in ("ok", "seconds", "prompt_tokens", "prompt_per_second", "completion_tokens",
+                         "completion_per_second", "finish_reason", "detail")}
+        if "detail" in test:
+            test["detail"] = plain(test["detail"])
+        if "finish_reason" in test:
+            test["finish_reason"] = finish_words(test["finish_reason"])
         body = {"models": [{"model": self.model, "gguf_sha256": self.spec["sha256"],
-                            "self_test": {k: v for k, v in self.self_test.items()
-                                          if k in ("ok", "seconds", "prompt_tokens", "prompt_per_second",
-                                                   "completion_tokens", "completion_per_second", "finish_reason",
-                                                   "detail")}}],
+                            "self_test": {k: v for k, v in test.items() if v is not None}}],
                 "llama_cpp": self.build, "machine": self.machine}
         entry = {"at": iso(self.clock()), "self_test_ok": bool(self.self_test.get("ok"))}
         self.record["heartbeats"].append(entry)
@@ -555,8 +602,10 @@ class Runner:
             return False
         verdict = ((result.json() or {}).get("models") or {}).get(self.model) or {}
         entry["accepted"], entry["problem"] = bool(verdict.get("accepted")), verdict.get("problem")
-        self.out(f"Heartbeat: the League {'plays' if entry['accepted'] else 'does not play'} {self.model}"
-                 + (f" ({entry['problem']})" if entry["problem"] else ""))
+        entry["activated"] = verdict.get("activated")
+        self.out(f"Heartbeat: the League {'takes' if entry['accepted'] else 'does not take'} today's jobs from "
+                 f"{self.model}" + (f" ({entry['problem']})" if entry["problem"] else "")
+                 + {True: "; the model is activated", False: "; the model isn't activated"}.get(entry["activated"], ""))
         return True
 
     def _stop_at(self) -> float:
@@ -653,7 +702,7 @@ class Runner:
         try:
             result = self.server.chat(request, timeout=max(5.0, left - 5))
         except HttpFailure as e:
-            result, failure = None, f"llama-server didn't answer ({e})"
+            result, failure = None, plain(f"llama-server didn't answer ({e})")
         else:
             failure = None if result.status == 200 else f"llama-server answered {result.status}"
         seconds = round(self.clock() - started, 1)
@@ -780,7 +829,7 @@ def finished_models(day: str, runs_dir: Path) -> List[str]:
 # --- The plan ---------------------------------------------------------------------------------------------------------
 
 def plan(config: Mapping[str, Any], *, models: str = "", heartbeat_only: bool = False, now: Optional[float] = None,
-         runs_dir: Path = ROOT / "runs") -> Dict[str, Any]:
+         runs_dir: Path = ROOT / "records" / "runs") -> Dict[str, Any]:
     """Which models this run serves: every enabled one (or the ones named, enabled or not), less the ones whose job
     is done today, and none after the evening's hard stop. A heartbeat-only run serves them whatever the time."""
     now = time.time() if now is None else now
@@ -816,6 +865,7 @@ def main(argv: Optional[List[str]] = None, out: Callable[[str], None] = print) -
     p_plan = sub.add_parser("plan", help="which models run (prints GitHub step outputs)")
     p_plan.add_argument("--models", default="")
     p_plan.add_argument("--heartbeat-only", action="store_true")
+    p_plan.add_argument("--runs", default=str(ROOT / "records" / "runs"), help="the records branch's runs/")
     p_spec = sub.add_parser("spec", help="a model's pinned files (prints GitHub step outputs)")
     p_spec.add_argument("--model", required=True)
     p_serve = sub.add_parser("serve", help="self-test, heartbeat, then answer the day's jobs")
@@ -824,15 +874,15 @@ def main(argv: Optional[List[str]] = None, out: Callable[[str], None] = print) -
     p_serve.add_argument("--server-log")
     p_serve.add_argument("--record", required=True)
     p_serve.add_argument("--heartbeat-only", action="store_true")
-    p_record = sub.add_parser("record", help="add this run's records to runs/<day>.json")
+    p_record = sub.add_parser("record", help="add this run's records to runs/<day>.json (the records branch's)")
     p_record.add_argument("--day", required=True)
     p_record.add_argument("--records", required=True)
-    p_record.add_argument("--runs", default=str(ROOT / "runs"))
+    p_record.add_argument("--runs", default=str(ROOT / "records" / "runs"))
     args = parser.parse_args(argv)
     try:
         config = load_config()
         if args.command == "plan":
-            result = plan(config, models=args.models, heartbeat_only=args.heartbeat_only)
+            result = plan(config, models=args.models, heartbeat_only=args.heartbeat_only, runs_dir=Path(args.runs))
             for key in ("matrix", "skip", "day"):
                 out(f"{key}={result[key]}")
             print(f"Plan for {result['day']}: {result['matrix']}" + (f" (skip: {result['reason']})"

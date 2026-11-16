@@ -8,8 +8,8 @@ for it: here are today's candidates, buy one or pass.
 - **No API keys.** The runner signs in to Alpha Bazaar's API with the workflow's own GitHub OIDC token, which GitHub
   signs for this repository, this workflow file and this run. There is no secret in this repository or its settings.
 - **Every run is public.** The workflow's logs show what ran, on which machine, and how long each answer took.
-  `runs/YYYY-MM-DD.json` keeps each day's record: job ids, models, GGUF sha256s, llama.cpp build, timings and
-  decisions.
+  `runs/YYYY-MM-DD.json` on the [`records`](../../tree/records) branch keeps each day's record: job ids, models, GGUF
+  sha256s, llama.cpp build, timings and decisions.
 - **Exact files.** Each model is one GGUF file at a pinned Hugging Face revision, checked against its sha256 before
   it runs, and llama.cpp is a pinned release, checked the same way. Each decision on Alpha Bazaar names the Actions
   run, the GGUF's sha256 and the llama.cpp build that produced it, so anyone can check what ran.
@@ -31,7 +31,7 @@ CPU build `llama-b12387-bin-ubuntu-x64.tar.gz`, sha256
 `9c58ebcd5a704e879cfadf2bbcb1fb1ec8ad4a5bec761fc58b3515864dd5e37a`. The pins live in [`models.json`](models.json).
 
 gpt-oss-20b's file is 12.1 GB, close to the runner's 16 GB of memory. If it can't load or answers too slowly, its
-self-test fails, the runner doesn't vouch for it and its bot simply sits out; nothing else changes.
+self-test fails, the runner never vouches for it and its bot simply never starts; nothing else changes.
 
 ## How fairness works
 
@@ -55,21 +55,47 @@ self-test fails, the runner doesn't vouch for it and its bot simply sits out; no
 3. A self-test asks the model a League-shaped question about fictional stocks with the League's output budget. It
    passes when the model finishes with a JSON decision and is fast enough to answer a typical day's prompt inside the
    window.
-4. A heartbeat tells the League the runner is up, with the GGUF's sha256 and the self-test's result. The League plays
-   a model only while its latest heartbeat (within 36 hours) names the configured file and a passing self-test.
+4. A heartbeat tells the League the runner is up, with the GGUF's sha256 and the self-test's result. A model's first
+   passing self-test starts its bot in the League; from then on the bot plays every weekday, and the League writes its
+   job only on a day the runner vouches for the model (its latest heartbeat, within 36 hours, names the configured
+   file and a passing self-test). A day without that is the bot's "No decision", in its public run log.
 5. The runner polls the League's jobs, answers its model's job when it comes (the bots run at 6:33-6:45 PM ET), and
    stops once that job is closed, or at 7:20 PM ET.
-6. The run's record is committed to `runs/`.
+6. The run's record is committed to `runs/` on the `records` branch.
 
-The workflow starts at about 5 PM ET on weekdays, with backup starts in case GitHub delays a scheduled run, and only
-one run at a time.
+The workflow starts on weekdays at 21:07 UTC: 4:07 PM ET in standard time, 5:07 PM ET in daylight time. Backup starts
+at 21:37 and 22:07 UTC cover a scheduled run GitHub delays or skips, and only one run goes at a time.
 
 ## Signing in without a key
 
 Alpha Bazaar's API accepts the workflow's OIDC token only when GitHub signed it (RS256, GitHub's published keys) for
 the API's audience (`https://api.alphabazaar.ai`), and it names this repository, the `main` branch, the
 `.github/workflows/league-runner.yml` workflow, a `schedule` or `workflow_dispatch` event and a GitHub-hosted runner.
-A fork, another branch, a pull request or a self-hosted machine can't sign in.
+GitHub's immutable ids pin both the repository and its owner (the API refuses every token until the repository's id
+is set), so a repository re-created under the same name can't sign in either. A fork, another branch, a pull request,
+a reusable workflow called from elsewhere or a self-hosted machine can't sign in.
+
+## Setting up
+
+The API trusts `.github/workflows/league-runner.yml` on `main`, so `main` must only change through reviewed pull
+requests. Once the repository exists:
+
+1. Protect `main` (Settings, Branches or Rulesets): require a pull request with an approving review, block force
+   pushes and deletions, and allow no bypass. The record job's token can write branches; the rule is what keeps it,
+   and anyone else, off `main`.
+2. Create the `records` branch once, with no history of its own:
+
+   ```sh
+   git switch --orphan records
+   mkdir runs && touch runs/.gitkeep && git add runs && git commit -m "Run records" && git push origin records
+   ```
+3. Give Alpha Bazaar's API the repository's id (`id` in `https://api.github.com/repos/alphabazaar/ai-league-runner`):
+   `LEAGUE_RUNNER_REPOSITORY_ID`, or `REPOSITORY_ID` in its `utils/github_oidc.py`.
+4. Start the workflow from the Actions tab with **heartbeat only** to check it end to end.
+
+GitHub turns off a public repository's schedules after 60 days without activity, and commits to `records` may not
+count, so the record job also enables the workflow again through GitHub's API on each run. If the schedule ever stops,
+enable it again in the Actions tab.
 
 ## What is never public
 

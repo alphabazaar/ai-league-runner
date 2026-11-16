@@ -301,13 +301,94 @@ class TheEvening(unittest.TestCase):
         self.assertEqual(self.world.heartbeats[0]["models"][0]["self_test"],
                          {"ok": False, "detail": "llama-server didn't start"})
 
+    def test_a_self_test_reply_that_didnt_finish_doesnt_pass(self):
+        """A JSON decision cut off at the output limit (or stopped for any other reason) isn't a pass: the League's
+        reply would be cut off too."""
+        for finish in ("length", "error", None):
+            self.world.chat_finish = finish
+            test = lr.run_self_test(lr.LlamaServer("http://127.0.0.1:8080", http=self.world), GRANITE, CONFIG,
+                                    self.clock)
+            self.assertFalse(test["ok"], finish)
+            self.assertEqual(test["detail"], f"the reply didn't finish ({finish or 'no reason'})")
+        self.world.chat_finish = "Stop <b>"  # not a finish_reason the API accepts
+        test = lr.run_self_test(lr.LlamaServer("http://127.0.0.1:8080", http=self.world), GRANITE, CONFIG, self.clock)
+        self.assertEqual((test["ok"], test.get("finish_reason")), (False, None))
+
+    def test_llama_servers_log_is_never_shown_once_a_league_job_reached_it(self):
+        """Its log could quote a prompt (licensed headlines) once a job ran: from then on it stays on the machine."""
+        with tempfile.TemporaryDirectory() as tmp:
+            log = Path(tmp) / "llama-server.log"
+            log.write_text(f"main: loading model\nslot launch: prompt '{PROMPT}'\n")
+            runner, lines = runner_for(self.world, self.clock, server_log=log)
+            runner._print_server_log()
+            self.assertIn("  main: loading model", lines)  # before any job: safe to show
+            lines.clear()
+            self.world.scheduled.append((at(18, 42), a_job()))
+            runner.self_test = {"ok": True}
+            self.clock.now = at(18, 42)
+            self.world.healthy = False  # llama-server stops after the job: the run ends without its log
+            runner._poll()
+            self.assertTrue(runner.real_job_seen)
+            runner._print_server_log()
+            self.assertFalse([line for line in lines if "llama-server's last lines" in line or PROMPT in line])
+            self.assert_nothing_secret(lines, runner)
+
+    def test_a_reply_the_api_refuses_with_422_is_dropped_never_posted_again(self):
+        self.world.scheduled.append((at(18, 42), a_job()))
+        self.world.reply_statuses = [422]
+        runner, lines = runner_for(self.world, self.clock)
+        runner.self_test = {"ok": True}
+        self.clock.now = at(18, 42)
+        runner._poll()
+        self.assertEqual(len(self.world.replies), 1)  # refused: the League stores nothing, nothing to retry
+        (entry,) = runner.record["jobs"]
+        self.assertEqual((entry["status"], entry["http_status"]), ("refused", 422))
+        self.assertEqual(runner.pending, {})
+        self.assertIn("Job 20261116-ai_granite_42_8b: refused: status 422", lines)
+
+    def test_what_the_public_run_log_shows_has_the_shapes_the_api_accepts(self):
+        self.world.scheduled.append((at(18, 42), a_job()))
+        runner, lines = runner_for(self.world, self.clock)
+        runner.self_test = {"ok": True}
+        self.clock.now = at(18, 42)
+        self.world.chat_failure = "[Errno 104] Connection reset by peer <html>"
+        runner._poll()
+        (_, reply), = self.world.replies
+        self.assertEqual(reply["error"], "llama-server didn't answer ( Errno 104 Connection reset by peer html )")
+        self.assertRegex(reply["error"], r"^[A-Za-z0-9][A-Za-z0-9 .,:;'()/_+=-]{0,159}$")
+        self.assertRegex(reply["runner"]["llama_cpp"], r"^b[0-9]{1,6}(-[0-9a-f]{7,40}| \([0-9a-f]{7,40}\))$")
+        self.assertEqual(lr.plain("  -- llama-server: \"oops\"\n<b>x</b>  "), "llama-server: oops b x /b")
+        self.assertEqual(lr.plain("\u202e\u0000"), "unknown")
+        self.assertEqual(len(lr.plain("y" * 500)), lr.PLAIN_CHARS)
+        self.assertEqual(lr.build_words("b12387-a956a852", CONFIG), "b12387-a956a852")
+        self.assertEqual(lr.build_words("version: 12387 (a956a85) built with cc", CONFIG), "b12387 (a956a85)")
+        self.assertEqual(lr.build_words(None, CONFIG), "b12387 (a956a85)")
+        self.assertEqual((lr.finish_words("STOP"), lr.finish_words("tool_calls"), lr.finish_words("stop!")),
+                         ("stop", "tool_calls", None))
+        runner2, _ = runner_for(World(Clock(at(17, 10))), Clock(at(17, 10)))
+        self.assertEqual(lr.plain(runner2.machine), runner2.machine)
+
+    def test_the_heartbeat_says_whether_the_league_takes_todays_jobs_and_whether_the_model_is_activated(self):
+        runner, lines = runner_for(self.world, self.clock)
+        runner.self_test = {"ok": True, "detail": "a JSON decision;\nsecond line", "finish_reason": "STOP"}
+        self.world.heartbeat_verdict = {"accepted": False, "activated": True,
+                                        "problem": "the model's self-test on the runner didn't pass"}
+        self.assertTrue(runner._heartbeat())
+        test = self.world.heartbeats[-1]["models"][0]["self_test"]
+        self.assertEqual((test["detail"], test["finish_reason"]), ("a JSON decision; second line", "stop"))
+        self.assertEqual(lines[-1], "Heartbeat: the League does not take today's jobs from granite-4.2-8b-q4_k_m "
+                                    "(the model's self-test on the runner didn't pass); the model is activated")
+        self.world.heartbeat_verdict = {"accepted": True, "problem": None}  # an older API: no word on activation
+        runner._heartbeat()
+        self.assertEqual(lines[-1], "Heartbeat: the League takes today's jobs from granite-4.2-8b-q4_k_m")
+
     def test_heartbeat_only_answers_nothing(self):
         self.world.scheduled.append((at(17, 10), a_job()))
         runner, lines = runner_for(self.world, self.clock, heartbeat_only=True)
         self.assertEqual(runner.run(), 0)
         self.assertEqual(len(self.world.heartbeats), 1)
         self.assertEqual(self.world.replies, [])
-        self.assertIn("Heartbeat: the League plays granite-4.2-8b-q4_k_m", lines)
+        self.assertIn("Heartbeat: the League takes today's jobs from granite-4.2-8b-q4_k_m", lines)
 
     def test_it_stops_when_no_bot_plays_the_model_or_at_the_hard_stop(self):
         self.world.expected = [{"bot": "ai_granite_42_8b", "model": GRANITE, "at": "18:42", "plays": False}]
@@ -403,13 +484,39 @@ class ThePlan(unittest.TestCase):
         with tempfile.TemporaryDirectory() as tmp:
             for change, words in (({"server_args": ["--temp", "0.1; curl evil"]}, "server_args"),
                                   ({"model": "granite"}, "GGUF file's name"),
-                                  ({"sha256": "abc"}, "sha256")):
+                                  ({"sha256": "abc"}, "sha256"),
+                                  ({"revision": "main"}, "full 40-hex commit"),  # a branch can move
+                                  ({"revision": SPEC["revision"][:7]}, "full 40-hex commit"),
+                                  ({"revision": SPEC["revision"].upper()}, "full 40-hex commit"),
+                                  ({"repo": "ibm-granite/../x"}, "Hugging Face repository"),
+                                  ({"repo": "ibm-granite"}, "Hugging Face repository")):
                 config = json.loads(json.dumps(CONFIG))
                 config["models"][3].update(change)
                 path = Path(tmp) / "models.json"
                 path.write_text(json.dumps(config))
                 with self.assertRaisesRegex(lr.RunnerError, words):
                     lr.load_config(path)
+            for change in ({"tag": "latest"}, {"commit": "a956a85"}):
+                config = json.loads(json.dumps(CONFIG))
+                config["llama_cpp"].update(change)
+                path.write_text(json.dumps(config))
+                with self.assertRaisesRegex(lr.RunnerError, "release tag"):
+                    lr.load_config(path)
+        for spec in CONFIG["models"]:  # every pin is a full commit
+            self.assertRegex(spec["revision"], r"^[0-9a-f]{40}$")
+
+    def test_plan_reads_todays_record_from_the_records_branch(self):
+        lines = []
+        with tempfile.TemporaryDirectory() as tmp:
+            runs = Path(tmp) / "runs"
+            runs.mkdir()
+            day = lr.to_et(datetime.now().timestamp()).date().isoformat()
+            (runs / f"{day}.json").write_text(json.dumps({"date": day, "runs": [{"models": [
+                {"model": m["model"], "jobs": [{"status": "answered"}], "exit": 0} for m in CONFIG["models"]]}]}))
+            with mock.patch.object(lr, "et_time", return_value=lr.dtime(23, 59)):
+                self.assertEqual(lr.main(["plan", "--runs", str(runs)], out=lines.append), 0)
+        self.assertIn("skip=true", lines)  # every model's job is done today: nothing to run
+        self.assertEqual(lr.plan.__kwdefaults__["runs_dir"], lr.ROOT / "records" / "runs")
 
 
 class TheRecord(unittest.TestCase):
