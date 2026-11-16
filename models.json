@@ -1,0 +1,81 @@
+{
+  "api": "https://api.alphabazaar.ai",
+  "audience": "https://api.alphabazaar.ai",
+  "llama_cpp": {
+    "tag": "b12387",
+    "commit": "a956a852c9c8bc1fb07206364838ddef299178c0",
+    "url": "https://github.com/ggml-org/llama.cpp/releases/download/b12387/llama-b12387-bin-ubuntu-x64.tar.gz",
+    "sha256": "9c58ebcd5a704e879cfadf2bbcb1fb1ec8ad4a5bec761fc58b3515864dd5e37a"
+  },
+  "context_size": 16384,
+  "max_tokens": 4096,
+  "window_minutes": 30,
+  "hard_stop_et": "19:20",
+  "models": [
+    {
+      "model": "gpt-oss-20b-mxfp4",
+      "enabled": true,
+      "lab": "OpenAI",
+      "name": "gpt-oss-20b",
+      "quant": "MXFP4",
+      "repo": "ggml-org/gpt-oss-20b-GGUF",
+      "revision": "41e8a94d15d62070b36cf4553a0250717ecf46b8",
+      "file": "gpt-oss-20b-MXFP4.gguf",
+      "sha256": "27cd6c432c7672cb812a92f611cf3ba7bbc35928262bb1e1253ff4ee6ae35901",
+      "size": 12109566624,
+      "server_args": []
+    },
+    {
+      "model": "qwen3.5-4b-q4_k_m",
+      "enabled": true,
+      "lab": "Alibaba Qwen",
+      "name": "Qwen3.5 4B",
+      "quant": "Q4_K_M",
+      "repo": "ggml-org/Qwen3.5-4B-GGUF",
+      "revision": "8d43d974efc48399cb58957ad49c8b26bf5a109c",
+      "file": "Qwen3.5-4B-Q4_K_M.gguf",
+      "sha256": "217002fa8008ef4fc6d548353a3aebef055a96e6ff8e0e2c0953ef8254a89c14",
+      "size": 3032091584,
+      "server_args": []
+    },
+    {
+      "model": "ministral-3-8b-instruct-2512-q4_k_m",
+      "enabled": true,
+      "lab": "Mistral AI",
+      "name": "Ministral 3 8B Instruct 2512",
+      "quant": "Q4_K_M",
+      "repo": "mistralai/Ministral-3-8B-Instruct-2512-GGUF",
+      "revision": "0102285ad796bd99af90f58de616092e5630e970",
+      "file": "Ministral-3-8B-Instruct-2512-Q4_K_M.gguf",
+      "sha256": "33e7a72cf5e6e2cfc2f2847075acc013d68bba023e35310cef86b5cf8fdca761",
+      "size": 5198911904,
+      "server_args": []
+    },
+    {
+      "model": "granite-4.2-8b-q4_k_m",
+      "enabled": true,
+      "lab": "IBM",
+      "name": "Granite 4.2 8B",
+      "quant": "Q4_K_M",
+      "repo": "ibm-granite/granite-4.2-8b-GGUF",
+      "revision": "93f3f6a8938ee922b784cf4e5b4203cd3428df8f",
+      "file": "granite-4.2-8b-Q4_K_M.gguf",
+      "sha256": "16a9369d0805f80b7377d25d87f937a90c05dc04ad79173a52001e42c9aab311",
+      "size": 5347917952,
+      "server_args": []
+    },
+    {
+      "model": "nvidia-nemotron-3.5-bolt-e4b-q8_0",
+      "enabled": true,
+      "lab": "NVIDIA",
+      "name": "Nemotron 3.5 Bolt E4B",
+      "quant": "Q8_0",
+      "repo": "ggml-org/NVIDIA-Nemotron-3.5-Bolt-E4B-GGUF",
+      "revision": "97f1ffa12ee2af5e1e7804a65ea4c777493dfa4c",
+      "file": "NVIDIA-Nemotron-3.5-Bolt-E4B-Q8_0.gguf",
+      "sha256": "64504effb9a71a991e487ac4e4cf827485e78bf577efb0a6edf67ce7e1ba84a8",
+      "size": 8031245312,
+      "server_args": []
+    }
+  ]
+}
