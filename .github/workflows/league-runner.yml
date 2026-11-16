@@ -26,7 +26,7 @@ on:
   workflow_dispatch:
     inputs:
       heartbeat_only:
-        description: "Only download, self-test and send a heartbeat (answers no job)"
+        description: "Only download, self-test and send a heartbeat (answers no job; a passing self-test activates the model)"
         type: boolean
         default: false
       models:
@@ -234,4 +234,7 @@ jobs:
       - name: Keep the schedule on
         env:
           GH_TOKEN: ${{ github.token }}
-        run: gh api -X PUT "repos/$GITHUB_REPOSITORY/actions/workflows/league-runner.yml/enable" --silent || true
+        run: |
+          if ! gh api -X PUT "repos/$GITHUB_REPOSITORY/actions/workflows/league-runner.yml/enable" --silent; then
+            echo "::warning::The workflow couldn't be enabled again through GitHub's API. If its schedule stops, enable it in the Actions tab."
+          fi

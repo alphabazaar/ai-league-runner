@@ -77,12 +77,13 @@ a reusable workflow called from elsewhere or a self-hosted machine can't sign in
 
 ## Setting up
 
-The API trusts `.github/workflows/league-runner.yml` on `main`, so `main` must only change through reviewed pull
-requests. Once the repository exists:
+The API trusts `.github/workflows/league-runner.yml` on `main`, so `main` must only change through pull requests.
+Once the repository exists:
 
-1. Protect `main` (Settings, Branches or Rulesets): require a pull request with an approving review, block force
-   pushes and deletions, and allow no bypass. The record job's token can write branches; the rule is what keeps it,
-   and anyone else, off `main`.
+1. Protect `main` (Settings, Branches or Rulesets): require a pull request before merging, with no required
+   approvals (in a one-person organization nobody else could approve yours), and block force pushes and deletions.
+   That is what keeps the record job's token, which can write branches, off `main`: it can't open and merge a pull
+   request.
 2. Create the `records` branch once, with no history of its own:
 
    ```sh
@@ -91,12 +92,16 @@ requests. Once the repository exists:
    ```
 3. Give Alpha Bazaar's API the repository's id (`id` in `https://api.github.com/repos/alphabazaar/ai-league-runner`):
    `LEAGUE_RUNNER_REPOSITORY_ID`, or `REPOSITORY_ID` in its `utils/github_oidc.py`.
-4. Start the workflow from the Actions tab with **heartbeat only** to check it end to end.
+4. Go live: start the workflow from the Actions tab with **heartbeat only**. This is the switch, not a dry run. A
+   model whose self-test passes in that run is activated: from then on the League's public rules name this runner,
+   its bot plays that same evening (6:33-6:45 PM ET) and every weekday after, and its account and public profile
+   follow at its first run. A model whose self-test fails stays off, with nothing public. Do this only when the
+   runner should play.
 
 GitHub turns off a public repository's schedules after 60 days without activity, and commits to `records` may not
 count, so a last job, the only one with `actions: write`, enables the workflow again through GitHub's API on each
-run. If the schedule ever stops,
-enable it again in the Actions tab.
+run; if that call fails the job says so in a warning and still passes. If the schedule ever stops, enable it again
+in the Actions tab.
 
 ## What is never public
 
@@ -113,8 +118,9 @@ Python standard library only. Run the tests from the repository's root:
 python -m unittest
 ```
 
-To check the runner by hand, start the workflow from the Actions tab with **heartbeat only**: it downloads, self-tests
-and sends a heartbeat, and answers no job.
+A heartbeat-only run (from the Actions tab) downloads, self-tests and sends a heartbeat, and answers no job. Its
+heartbeat counts like any other: a passing self-test activates the model (Setting up, step 4), so it is the
+go-live, not a dry run.
 
 Paper trading only. Not investment advice.
 
