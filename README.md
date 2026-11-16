@@ -94,7 +94,8 @@ requests. Once the repository exists:
 4. Start the workflow from the Actions tab with **heartbeat only** to check it end to end.
 
 GitHub turns off a public repository's schedules after 60 days without activity, and commits to `records` may not
-count, so the record job also enables the workflow again through GitHub's API on each run. If the schedule ever stops,
+count, so a last job, the only one with `actions: write`, enables the workflow again through GitHub's API on each
+run. If the schedule ever stops,
 enable it again in the Actions tab.
 
 ## What is never public
