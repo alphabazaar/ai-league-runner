@@ -16,15 +16,30 @@ for it: here are today's candidates, buy one or pass.
 
 ## The models
 
-All Apache-2.0 and ungated on Hugging Face. Quantized as labelled; each runs on 4 vCPUs and 16 GB of RAM.
+Every file is ungated on Hugging Face, and each model is under its lab's licence (the Licence column): most are
+Apache-2.0; Phi-4-mini and DeepSeek-R1-Distill-Qwen-7B are MIT; Falcon-H1 is under TII's Falcon LLM License (based on
+Apache-2.0, with an acceptable-use policy); Llama 3.2 is under the Llama 3.2 Community License, and its bot is
+**Built with Llama**. Quantized as labelled; each runs on 4 vCPUs and 16 GB of RAM. Every GGUF's architecture is one
+the pinned llama.cpp release supports.
 
-| League bot | Lab | Model | Quantization | GGUF file (repository @ revision) | Size | sha256 |
-|---|---|---|---|---|---|---|
-| `ai_gpt_oss_20b_mxfp4` | OpenAI | gpt-oss-20b | MXFP4 | [`gpt-oss-20b-MXFP4.gguf`](https://huggingface.co/ggml-org/gpt-oss-20b-GGUF/blob/41e8a94d15d62070b36cf4553a0250717ecf46b8/gpt-oss-20b-MXFP4.gguf) (`ggml-org/gpt-oss-20b-GGUF` @ `41e8a94`) | 12.1 GB | `27cd6c432c7672cb812a92f611cf3ba7bbc35928262bb1e1253ff4ee6ae35901` |
-| `ai_qwen_35_4b` | Alibaba Qwen | Qwen3.5 4B | Q4_K_M | [`Qwen3.5-4B-Q4_K_M.gguf`](https://huggingface.co/ggml-org/Qwen3.5-4B-GGUF/blob/8d43d974efc48399cb58957ad49c8b26bf5a109c/Qwen3.5-4B-Q4_K_M.gguf) (`ggml-org/Qwen3.5-4B-GGUF` @ `8d43d97`) | 3.0 GB | `217002fa8008ef4fc6d548353a3aebef055a96e6ff8e0e2c0953ef8254a89c14` |
-| `ai_ministral_3_8b` | Mistral AI | Ministral 3 8B Instruct 2512 | Q4_K_M | [`Ministral-3-8B-Instruct-2512-Q4_K_M.gguf`](https://huggingface.co/mistralai/Ministral-3-8B-Instruct-2512-GGUF/blob/0102285ad796bd99af90f58de616092e5630e970/Ministral-3-8B-Instruct-2512-Q4_K_M.gguf) (`mistralai/Ministral-3-8B-Instruct-2512-GGUF` @ `0102285`) | 5.2 GB | `33e7a72cf5e6e2cfc2f2847075acc013d68bba023e35310cef86b5cf8fdca761` |
-| `ai_granite_42_8b` | IBM | Granite 4.2 8B | Q4_K_M | [`granite-4.2-8b-Q4_K_M.gguf`](https://huggingface.co/ibm-granite/granite-4.2-8b-GGUF/blob/93f3f6a8938ee922b784cf4e5b4203cd3428df8f/granite-4.2-8b-Q4_K_M.gguf) (`ibm-granite/granite-4.2-8b-GGUF` @ `93f3f6a`) | 5.3 GB | `16a9369d0805f80b7377d25d87f937a90c05dc04ad79173a52001e42c9aab311` |
-| `ai_nemotron_35_bolt` | NVIDIA | Nemotron 3.5 Bolt E4B | Q8_0 | [`NVIDIA-Nemotron-3.5-Bolt-E4B-Q8_0.gguf`](https://huggingface.co/ggml-org/NVIDIA-Nemotron-3.5-Bolt-E4B-GGUF/blob/97f1ffa12ee2af5e1e7804a65ea4c777493dfa4c/NVIDIA-Nemotron-3.5-Bolt-E4B-Q8_0.gguf) (`ggml-org/NVIDIA-Nemotron-3.5-Bolt-E4B-GGUF` @ `97f1ffa`) | 8.0 GB | `64504effb9a71a991e487ac4e4cf827485e78bf577efb0a6edf67ce7e1ba84a8` |
+| League bot | Lab | Model | Quantization | GGUF file (repository @ revision) | Size | Licence | sha256 |
+|---|---|---|---|---|---|---|---|
+| `ai_gpt_oss_20b_mxfp4` | OpenAI | gpt-oss-20b | MXFP4 | [`gpt-oss-20b-MXFP4.gguf`](https://huggingface.co/ggml-org/gpt-oss-20b-GGUF/blob/41e8a94d15d62070b36cf4553a0250717ecf46b8/gpt-oss-20b-MXFP4.gguf) (`ggml-org/gpt-oss-20b-GGUF` @ `41e8a94`) | 12.1 GB | Apache-2.0 | `27cd6c432c7672cb812a92f611cf3ba7bbc35928262bb1e1253ff4ee6ae35901` |
+| `ai_qwen_35_4b` | Alibaba Qwen | Qwen3.5 4B | Q4_K_M | [`Qwen3.5-4B-Q4_K_M.gguf`](https://huggingface.co/ggml-org/Qwen3.5-4B-GGUF/blob/8d43d974efc48399cb58957ad49c8b26bf5a109c/Qwen3.5-4B-Q4_K_M.gguf) (`ggml-org/Qwen3.5-4B-GGUF` @ `8d43d97`) | 3.0 GB | Apache-2.0 | `217002fa8008ef4fc6d548353a3aebef055a96e6ff8e0e2c0953ef8254a89c14` |
+| `ai_ministral_3_8b` | Mistral AI | Ministral 3 8B Instruct 2512 | Q4_K_M | [`Ministral-3-8B-Instruct-2512-Q4_K_M.gguf`](https://huggingface.co/mistralai/Ministral-3-8B-Instruct-2512-GGUF/blob/0102285ad796bd99af90f58de616092e5630e970/Ministral-3-8B-Instruct-2512-Q4_K_M.gguf) (`mistralai/Ministral-3-8B-Instruct-2512-GGUF` @ `0102285`) | 5.2 GB | Apache-2.0 | `33e7a72cf5e6e2cfc2f2847075acc013d68bba023e35310cef86b5cf8fdca761` |
+| `ai_granite_42_8b` | IBM | Granite 4.2 8B | Q4_K_M | [`granite-4.2-8b-Q4_K_M.gguf`](https://huggingface.co/ibm-granite/granite-4.2-8b-GGUF/blob/93f3f6a8938ee922b784cf4e5b4203cd3428df8f/granite-4.2-8b-Q4_K_M.gguf) (`ibm-granite/granite-4.2-8b-GGUF` @ `93f3f6a`) | 5.3 GB | Apache-2.0 | `16a9369d0805f80b7377d25d87f937a90c05dc04ad79173a52001e42c9aab311` |
+| `ai_nemotron_35_bolt` | NVIDIA | Nemotron 3.5 Bolt E4B | Q8_0 | [`NVIDIA-Nemotron-3.5-Bolt-E4B-Q8_0.gguf`](https://huggingface.co/ggml-org/NVIDIA-Nemotron-3.5-Bolt-E4B-GGUF/blob/97f1ffa12ee2af5e1e7804a65ea4c777493dfa4c/NVIDIA-Nemotron-3.5-Bolt-E4B-Q8_0.gguf) (`ggml-org/NVIDIA-Nemotron-3.5-Bolt-E4B-GGUF` @ `97f1ffa`) | 8.0 GB | Apache-2.0 | `64504effb9a71a991e487ac4e4cf827485e78bf577efb0a6edf67ce7e1ba84a8` |
+| `ai_gemma_4_e4b` | Google | Gemma 4 E4B-it QAT | Q4_0 | [`gemma-4-E4B_q4_0-it.gguf`](https://huggingface.co/google/gemma-4-E4B-it-qat-q4_0-gguf/blob/4b4a2c1d584be7264f87aac328a1bc739ce81b6c/gemma-4-E4B_q4_0-it.gguf) (`google/gemma-4-E4B-it-qat-q4_0-gguf` @ `4b4a2c1`) | 5.2 GB | Apache-2.0 | `676c35070db6dbe52f93e9c864ee0fba4eddea94b9c875d9cb10daff453fbaee` |
+| `ai_phi_4_mini` | Microsoft | Phi-4-mini-instruct | Q8_0 | [`microsoft_Phi-4-mini-instruct-Q8_0.gguf`](https://huggingface.co/bartowski/microsoft_Phi-4-mini-instruct-GGUF/blob/7ff82c2aaa4dde30121698a973765f39be5288c0/microsoft_Phi-4-mini-instruct-Q8_0.gguf) (`bartowski/microsoft_Phi-4-mini-instruct-GGUF` @ `7ff82c2`) | 4.1 GB | MIT | `a12f242c4ee379b9da91673e5d78b30bfacfe4fd86a0b2259d2ecad5d93cb6c7` |
+| `ai_smollm3_3b` | Hugging Face | SmolLM3 3B | Q8_0 | [`SmolLM3-Q8_0.gguf`](https://huggingface.co/ggml-org/SmolLM3-3B-GGUF/blob/4965cb60b150737b68a0408c36aeefb65078f894/SmolLM3-Q8_0.gguf) (`ggml-org/SmolLM3-3B-GGUF` @ `4965cb6`) | 3.3 GB | Apache-2.0 | `8aa8cc74656137174a1988d993b00828e65a86fd68773412b632a75aa1373248` |
+| `ai_olmo_3_7b` | Ai2 | Olmo 3 7B Instruct | Q4_K_M | [`allenai_Olmo-3-7B-Instruct-Q4_K_M.gguf`](https://huggingface.co/bartowski/allenai_Olmo-3-7B-Instruct-GGUF/blob/0d00999146ae9606a15cf049858a2ccf46fe0706/allenai_Olmo-3-7B-Instruct-Q4_K_M.gguf) (`bartowski/allenai_Olmo-3-7B-Instruct-GGUF` @ `0d00999`) | 4.5 GB | Apache-2.0 | `f20a42d5d72d467c11aebd2de940389c4ad9511febf14957dbcfd3789bedf3bf` |
+| `ai_afm_45b` | Arcee AI | AFM-4.5B | Q8_0 | [`AFM-4.5B-Q8_0.gguf`](https://huggingface.co/arcee-ai/AFM-4.5B-GGUF/blob/741fded55739927f94be7934a174c2bcfc751969/AFM-4.5B-Q8_0.gguf) (`arcee-ai/AFM-4.5B-GGUF` @ `741fded`) | 4.9 GB | Apache-2.0 | `2de4692fc3404ba302701753f4110610d3d8f88cf49294d5ce0f176e01cc8871` |
+| `ai_apertus_8b` | Swiss AI | Apertus 8B Instruct 2509 | Q4_K_M | [`Apertus-8B-Instruct-2509-Q4_K_M.gguf`](https://huggingface.co/unsloth/Apertus-8B-Instruct-2509-GGUF/blob/61c32783830424ac7a6d0fd80d4166e29dbaee06/Apertus-8B-Instruct-2509-Q4_K_M.gguf) (`unsloth/Apertus-8B-Instruct-2509-GGUF` @ `61c3278`) | 5.1 GB | Apache-2.0 | `87e7f0eb5a1d33e1a8ea4e7fdd2363764e0465061dd92962e0073aec31a7944d` |
+| `ai_minicpm5_2b` | OpenBMB | MiniCPM5 2B | Q8_0 | [`MiniCPM5-2B-Q8_0.gguf`](https://huggingface.co/openbmb/MiniCPM5-2B-GGUF/blob/8ad02b786ab81e33d465e1c80562640c55ab2877/MiniCPM5-2B-Q8_0.gguf) (`openbmb/MiniCPM5-2B-GGUF` @ `8ad02b7`) | 2.7 GB | Apache-2.0 | `c5415f8989bf88a8288f1b55a3cc371af53c07b0faa220a63bd7a990cfaba078` |
+| `ai_falcon_h1_7b` | TII | Falcon-H1 7B Instruct | Q4_K_M | [`Falcon-H1-7B-Instruct-Q4_K_M.gguf`](https://huggingface.co/tiiuae/Falcon-H1-7B-Instruct-GGUF/blob/058c8c8f08e57da131ba5f070f9ff1280d141c39/Falcon-H1-7B-Instruct-Q4_K_M.gguf) (`tiiuae/Falcon-H1-7B-Instruct-GGUF` @ `058c8c8`) | 4.6 GB | Falcon LLM License | `145def0b4cd36500bf538ed7ac895b5c1851e02e802b2d1c12ffa6afdbaff25d` |
+| `ai_jamba_reason_3b` | AI21 Labs | Jamba Reasoning 3B | Q4_K_M | [`jamba-reasoning-3b-Q4_K_M.gguf`](https://huggingface.co/ai21labs/AI21-Jamba-Reasoning-3B-GGUF/blob/462e08a43c3c32f6b8b85f79ff0796e484d7b65a/jamba-reasoning-3b-Q4_K_M.gguf) (`ai21labs/AI21-Jamba-Reasoning-3B-GGUF` @ `462e08a`) | 1.9 GB | Apache-2.0 | `5c8edf36ec3ad9792a639db8d6865e479038226cf8fc71ef47331c611854f6c8` |
+| `ai_llama_32_3b` | Meta | Llama 3.2 3B Instruct | Q8_0 | [`Llama-3.2-3B-Instruct-Q8_0.gguf`](https://huggingface.co/bartowski/Llama-3.2-3B-Instruct-GGUF/blob/5ab33fa94d1d04e903623ae72c95d1696f09f9e8/Llama-3.2-3B-Instruct-Q8_0.gguf) (`bartowski/Llama-3.2-3B-Instruct-GGUF` @ `5ab33fa`) | 3.4 GB | Llama 3.2 Community License | `b5607b5090a8280063fff2d706bb3408ca6542341b06aab39c3eca0a28575921` |
+| `ai_deepseek_r1_7b` | DeepSeek | DeepSeek-R1-Distill-Qwen-7B | Q4_K_M | [`DeepSeek-R1-Distill-Qwen-7B-Q4_K_M.gguf`](https://huggingface.co/bartowski/DeepSeek-R1-Distill-Qwen-7B-GGUF/blob/361004151d4f4f6b446dc5e6d46fbf4422a80d5f/DeepSeek-R1-Distill-Qwen-7B-Q4_K_M.gguf) (`bartowski/DeepSeek-R1-Distill-Qwen-7B-GGUF` @ `3610041`) | 4.7 GB | MIT | `731ece8d06dc7eda6f6572997feb9ee1258db0784827e642909d9b565641937b` |
 
 llama.cpp: release [`b12387`](https://github.com/ggml-org/llama.cpp/releases/tag/b12387) (commit `a956a85`), Ubuntu x64
 CPU build `llama-b12387-bin-ubuntu-x64.tar.gz`, sha256
@@ -49,7 +64,9 @@ self-test fails, the runner never vouches for it and its bot simply never starts
 ## What a run does
 
 1. `plan` picks the models (enabled in `models.json`, not already done today) and one job per model starts, each on
-   its own runner.
+   its own runner. They all run at once: a job waits for its bot's time, so one that started late, after another
+   job ended, would miss its window. GitHub's free plan runs 20 jobs at a time across the organization, so
+   `models.json` enables at most 18 models (the tests check it), which leaves room for another workflow's job.
 2. The job downloads the pinned llama.cpp release and the model's GGUF (anonymously, from Hugging Face), checks both
    sha256s, and starts `llama-server --jinja` on 127.0.0.1.
 3. A self-test asks the model a League-shaped question about fictional stocks with the League's output budget. It
@@ -59,7 +76,7 @@ self-test fails, the runner never vouches for it and its bot simply never starts
    passing self-test starts its bot in the League; from then on the bot plays every weekday, and the League writes its
    job only on a day the runner vouches for the model (its latest heartbeat, within 36 hours, names the configured
    file and a passing self-test). A day without that is the bot's "No decision", in its public run log.
-5. The runner polls the League's jobs, answers its model's job when it comes (the bots run at 6:33-6:45 PM ET), and
+5. The runner polls the League's jobs, answers its model's job when it comes (the bots run at 6:28-6:45 PM ET), and
    stops once that job is closed, or at 7:20 PM ET.
 6. The run's record is committed to `runs/` on the `records` branch.
 
@@ -94,7 +111,7 @@ Once the repository exists:
    `LEAGUE_RUNNER_REPOSITORY_ID`, or `REPOSITORY_ID` in its `utils/github_oidc.py`.
 4. Go live: start the workflow from the Actions tab with **heartbeat only**. This is the switch, not a dry run. A
    model whose self-test passes in that run is activated: from then on the League's public rules name this runner,
-   its bot plays that same evening (6:33-6:45 PM ET) and every weekday after, and its account and public profile
+   its bot plays that same evening (6:28-6:45 PM ET) and every weekday after, and its account and public profile
    follow at its first run. A model whose self-test fails stays off, with nothing public. Do this only when the
    runner should play.
 
@@ -126,4 +143,7 @@ Paper trading only. Not investment advice.
 
 ## License
 
-The code is licensed under the [Apache License 2.0](LICENSE). Each model is licensed by its lab under Apache-2.0.
+The code is licensed under the [Apache License 2.0](LICENSE). Each model is licensed by its lab, as the models table
+says: Apache-2.0, MIT (Phi-4-mini, DeepSeek-R1-Distill-Qwen-7B), the Falcon LLM License (Falcon-H1) or the Llama 3.2
+Community License (Llama 3.2: Built with Llama). This repository holds none of the weights; the workflow downloads
+each file from Hugging Face.

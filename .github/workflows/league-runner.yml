@@ -7,7 +7,7 @@ name: League runner
 # write), and nothing here prints a prompt (they carry licensed headlines) or a model's reply; the logs show job ids,
 # models, timings and the decisions' fields.
 #
-# Each weekday the League's runner bots play at 6:33-6:45 PM ET and their jobs close by 7:15 PM ET. Cron is UTC:
+# Each weekday the League's runner bots play at 6:28-6:45 PM ET and their jobs close by 7:15 PM ET. Cron is UTC:
 # 21:07 is 5:07 PM in daylight time and 4:07 PM in standard time, so the first run is up from about 4-5 PM ET in either
 # season, well before the jobs come; 21:37 and 22:07 (5:07 PM in standard time, 6:07 PM in daylight time) are backups,
 # since GitHub can start a scheduled run late or skip it at busy times. The concurrency group keeps one run at a time;
@@ -83,6 +83,10 @@ jobs:
       id-token: write  # the OIDC token the League's API checks: the runner's only credential
     strategy:
       fail-fast: false
+      # No max-parallel: every model's job has to be up at once (each waits for its bot's time, so a job that queued
+      # behind another, which ends around 7 PM ET, would miss its window). GitHub's free plan runs 20 jobs at a time
+      # per organization; plan runs before these and record and keepalive after them, so the peak is one job per
+      # model. models.json enables at most 18 (tests/test_league_runner.py checks it), leaving room for a tests run.
       matrix:
         model: ${{ fromJSON(needs.plan.outputs.matrix) }}
     env:

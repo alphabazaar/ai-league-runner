@@ -453,6 +453,7 @@ class ThePlan(unittest.TestCase):
 
     def test_named_models_and_models_done_today(self):
         config = json.loads(json.dumps(CONFIG))
+        config["models"] = config["models"][:5]  # the first five models' day
         config["models"][0]["enabled"] = False  # gpt-oss-20b dropped without a code change
         with tempfile.TemporaryDirectory() as tmp:
             runs = Path(tmp)
@@ -504,6 +505,22 @@ class ThePlan(unittest.TestCase):
                     lr.load_config(path)
         for spec in CONFIG["models"]:  # every pin is a full commit
             self.assertRegex(spec["revision"], r"^[0-9a-f]{40}$")
+
+    def test_every_enabled_model_gets_a_runner_at_once_and_is_in_the_readme(self):
+        # GitHub's free plan runs 20 jobs at a time per organization, and every model's job must be up at once (no
+        # max-parallel: a job that queued would miss its window), so at most 18, leaving room for another job
+        enabled = [m for m in CONFIG["models"] if m.get("enabled")]
+        self.assertLessEqual(len(enabled), 18)
+        self.assertEqual(len({m["model"] for m in CONFIG["models"]}), len(CONFIG["models"]))
+        readme = (lr.ROOT / "README.md").read_text(encoding="utf-8")
+        fields = {"model", "enabled", "lab", "name", "quant", "repo", "revision", "file", "sha256", "size",
+                  "server_args"}
+        for spec in CONFIG["models"]:
+            self.assertEqual(set(spec), fields, spec["model"])
+            self.assertLess(spec["size"], 13 * 10 ** 9, spec["model"])  # fits a 16 GB runner, or never activates
+            self.assertIn(spec["quant"].lower(), spec["file"].lower())
+            for words in (spec["file"], spec["sha256"], spec["revision"]):
+                self.assertIn(words, readme, spec["model"])
 
     def test_plan_reads_todays_record_from_the_records_branch(self):
         lines = []
