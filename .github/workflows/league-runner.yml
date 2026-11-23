@@ -12,7 +12,8 @@ name: League runner
 # season, well before the jobs come; 21:37 and 22:07 (5:07 PM in standard time, 6:07 PM in daylight time) are backups,
 # since GitHub can start a scheduled run late or skip it at busy times. The concurrency group keeps one run at a time;
 # a run that starts after the hard stop (7:20 PM ET), or finds every model's job done in today's record, does nothing.
-# GitHub registers the schedule when this file changes on main.
+# GitHub registers the schedule when this file changes on main. If scheduled runs stop appearing (no `schedule`
+# runs in the list while weekday cron times pass), change this file on main to register it again.
 #
 # Main holds only code and is meant to be protected (README: Setting up): the API trusts this file on main, so nobody
 # but a reviewed change should be able to touch it. The day's record goes to the `records` branch; the record job's
