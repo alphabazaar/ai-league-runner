@@ -535,7 +535,7 @@ class ThePlan(unittest.TestCase):
             real_et_time = lr.et_time
             captured = io.StringIO()
             with mock.patch.object(lr, "et_time", side_effect=lambda text: window.get(text) or real_et_time(text)), \
-                    contextlib.redirect_stdout(captured):
+                    contextlib.redirect_stderr(captured):
                 self.assertEqual(lr.main(["plan", "--runs", str(runs)], out=lines.append), 0)
         self.assertIn("skip=true", lines)
         self.assertIn("every model's job is done today", captured.getvalue())  # not the hard stop or the window
