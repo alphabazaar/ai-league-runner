@@ -127,7 +127,10 @@
       "file": "allenai_Olmo-3-7B-Instruct-Q4_K_M.gguf",
       "sha256": "f20a42d5d72d467c11aebd2de940389c4ad9511febf14957dbcfd3789bedf3bf",
       "size": 4471601792,
-      "server_args": []
+      "server_args": [
+        "--chat-template",
+        "chatml"
+      ]
     },
     {
       "model": "afm-4.5b-q8_0",
