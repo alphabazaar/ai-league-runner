@@ -530,11 +530,16 @@ class ThePlan(unittest.TestCase):
             day = lr.to_et(datetime.now().timestamp()).date().isoformat()
             (runs / f"{day}.json").write_text(json.dumps({"date": day, "runs": [{"models": [
                 {"model": m["model"], "jobs": [{"status": "answered"}], "exit": 0} for m in CONFIG["models"]]}]}))
-            with mock.patch.object(lr, "et_time", return_value=lr.dtime(23, 59)):
+            # whatever the time now: inside the evening's window (from midnight until a minute before midnight)
+            window = {"19:20": lr.dtime(23, 59), lr.EARLIEST_START_ET: lr.dtime(0, 0)}
+            real_et_time = lr.et_time
+            captured = io.StringIO()
+            with mock.patch.object(lr, "et_time", side_effect=lambda text: window.get(text) or real_et_time(text)), \
+                    contextlib.redirect_stdout(captured):
                 self.assertEqual(lr.main(["plan", "--runs", str(runs)], out=lines.append), 0)
-        self.assertIn("skip=true", lines)  # every model's job is done today: nothing to run
+        self.assertIn("skip=true", lines)
+        self.assertIn("every model's job is done today", captured.getvalue())  # not the hard stop or the window
         self.assertEqual(lr.plan.__kwdefaults__["runs_dir"], lr.ROOT / "records" / "runs")
-
 
     def test_a_cron_fired_after_midnight_runs_nothing_and_finishes_nothing(self):
         # GitHub fired Nov 23's 16:07 ET cron at 00:15 ET Nov 24: that serve polled a day with no jobs and exited 0
