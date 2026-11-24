@@ -1929,6 +1929,59 @@
       ],
       "run_id": "45268285924",
       "url": "https://github.com/alphabazaar/ai-league-runner/actions/runs/45268285924"
+    },
+    {
+      "attempt": "1",
+      "event": "workflow_dispatch",
+      "models": [
+        {
+          "ended_at": "2026-11-24T00:08:14Z",
+          "exit": 0,
+          "gguf": {
+            "file": "allenai_Olmo-3-7B-Instruct-Q4_K_M.gguf",
+            "repo": "bartowski/allenai_Olmo-3-7B-Instruct-GGUF",
+            "revision": "0d00999146ae9606a15cf049858a2ccf46fe0706",
+            "sha256": "f20a42d5d72d467c11aebd2de940389c4ad9511febf14957dbcfd3789bedf3bf",
+            "size": 4471601792
+          },
+          "heartbeat_only": true,
+          "heartbeats": [
+            {
+              "at": "2026-11-24T00:08:13Z",
+              "self_test_ok": true,
+              "status": 401
+            }
+          ],
+          "jobs": [],
+          "llama_cpp": {
+            "archive_sha256": "9c58ebcd5a704e879cfadf2bbcb1fb1ec8ad4a5bec761fc58b3515864dd5e37a",
+            "build": "b12387-a956a852c",
+            "commit": "a956a852c9c8bc1fb07206364838ddef299178c0",
+            "tag": "b12387"
+          },
+          "machine": "ubuntu 24.04, 4 vCPU, 15.3 GiB",
+          "model": "allenai_olmo-3-7b-instruct-q4_k_m",
+          "run": {
+            "attempt": "1",
+            "event": "workflow_dispatch",
+            "id": "45286349176",
+            "url": "https://github.com/alphabazaar/ai-league-runner/actions/runs/45286349176"
+          },
+          "self_test": {
+            "completion_per_second": 4.14,
+            "completion_tokens": 107,
+            "detail": "a JSON decision; a typical day's prompt would take about 6 min",
+            "finish_reason": "stop",
+            "ok": true,
+            "prompt_per_second": 32.29,
+            "prompt_tokens": 220,
+            "seconds": 32.4
+          },
+          "started_at": "2026-11-24T00:07:36Z"
+        }
+      ],
+      "run_id": "45286349176",
+      "url": "https://github.com/alphabazaar/ai-league-runner/actions/runs/45286349176"
     }
   ]
 }
