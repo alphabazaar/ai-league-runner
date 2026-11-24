@@ -10,7 +10,7 @@ import json
 import tempfile
 import threading
 import unittest
-from datetime import datetime
+from datetime import date, datetime
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
 from unittest import mock
@@ -534,6 +534,26 @@ class ThePlan(unittest.TestCase):
                 self.assertEqual(lr.main(["plan", "--runs", str(runs)], out=lines.append), 0)
         self.assertIn("skip=true", lines)  # every model's job is done today: nothing to run
         self.assertEqual(lr.plan.__kwdefaults__["runs_dir"], lr.ROOT / "records" / "runs")
+
+
+    def test_a_cron_fired_after_midnight_runs_nothing_and_finishes_nothing(self):
+        # GitHub fired Nov 23's 16:07 ET cron at 00:15 ET Nov 24: that serve polled a day with no jobs and exited 0
+        day = "2026-11-24"
+        with tempfile.TemporaryDirectory() as tmp:
+            runs = Path(tmp) / "runs"
+            runs.mkdir()
+            (runs / f"{day}.json").write_text(json.dumps({"date": day, "runs": [{"models": [
+                {"model": GRANITE, "jobs": [], "exit": 0, "started_at": "2026-11-24T05:16:00Z"},
+                {"model": QWEN, "jobs": [], "exit": 0, "started_at": "2026-11-24T21:10:00Z"}]}]}))
+            self.assertEqual(lr.finished_models(day, runs), [QWEN])  # only the evening's serve counts
+            early = lr.plan(CONFIG, now=lr.at_et(date(2026, 11, 24), lr.dtime(0, 15)), runs_dir=runs)
+            self.assertEqual((early["skip"], early["reason"]), ("true", "before the evening's window"))
+            beat = lr.plan(CONFIG, heartbeat_only=True, now=lr.at_et(date(2026, 11, 24), lr.dtime(0, 15)),
+                           runs_dir=runs)
+            self.assertEqual(beat["skip"], "false")  # a heartbeat-only run serves whatever the time
+            evening = lr.plan(CONFIG, now=lr.at_et(date(2026, 11, 24), lr.dtime(16, 8)), runs_dir=runs)
+            self.assertIn(GRANITE, json.loads(evening["matrix"]))
+            self.assertNotIn(QWEN, json.loads(evening["matrix"]))
 
 
 class TheRecord(unittest.TestCase):

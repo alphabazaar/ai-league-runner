@@ -63,6 +63,9 @@ MAX_MINUTES = 220  # a run polls at most this long (the job's own limit is 240 m
 API_REFUSALS_BEFORE_EXIT = 5
 TYPICAL_PROMPT_TOKENS = 4000  # a typical day's League prompt, for the self-test's speed check
 TYPICAL_COMPLETION_TOKENS = 1000
+# A run starts no earlier than this (ET) unless it's heartbeat-only: GitHub can fire a weekday cron hours late, past
+# midnight, and a serve then would poll a day with no League jobs yet and count as that day's finished run
+EARLIEST_START_ET = "15:00"
 WINDOW_SHARE = 0.8  # a model must be able to answer a typical day inside this share of the League's window
 DECISION_FIELDS = ("ticker", "action", "position_size", "time_horizon")
 RECORD_DROP_KEYS = ("messages", "content", "reasoning", "prompt")  # never in a record, whatever happens
@@ -807,7 +810,8 @@ def merge_records(day: str, records_dir: Path, runs_dir: Path, run: Mapping[str,
 def finished_models(day: str, runs_dir: Path) -> List[str]:
     """Models a run already finished today in the day's record: its job taken, closed or refused, or a serve that
     ended normally (its job done, no bot playing it, a job that never came, a self-test that failed: none of which a
-    second run would change). A heartbeat-only run finishes nothing; a run that failed early (llama-server didn't
+    second run would change). A heartbeat-only run finishes nothing, nor does a serve that started before the
+earliest start (a cron GitHub fired after midnight); a run that failed early (llama-server didn't
     start, the API refused the token) leaves the model to a backup run."""
     path = Path(runs_dir) / f"{day}.json"
     if not path.exists():
@@ -817,11 +821,17 @@ def finished_models(day: str, runs_dir: Path) -> List[str]:
     except ValueError:
         return []
     done = set()
+    try:
+        earliest = at_et(date.fromisoformat(day), et_time(EARLIEST_START_ET))
+    except ValueError:
+        earliest = None
     for run in data.get("runs") or []:
         for record in run.get("models") or []:
             jobs_over = any(job.get("status") in ("answered", "failed", "closed", "refused")
                             for job in record.get("jobs") or [])
-            if jobs_over or (record.get("exit") == 0 and not record.get("heartbeat_only")):
+            started = parse_time(record.get("started_at"))
+            too_early = earliest is not None and started is not None and started < earliest
+            if jobs_over or (record.get("exit") == 0 and not record.get("heartbeat_only") and not too_early):
                 done.add(record.get("model"))
     return sorted(m for m in done if m)
 
@@ -848,6 +858,8 @@ def plan(config: Mapping[str, Any], *, models: str = "", heartbeat_only: bool = 
     if not heartbeat_only:
         if local.time() >= et_time(config.get("hard_stop_et") or "19:20"):
             chosen, reason = [], "after the evening's hard stop"
+        elif local.time() < et_time(EARLIEST_START_ET):
+            chosen, reason = [], "before the evening's window"
         else:
             done = finished_models(day, runs_dir)
             chosen = [m for m in chosen if m not in done]
