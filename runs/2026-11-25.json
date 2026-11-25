@@ -1,0 +1,58 @@
+{
+  "date": "2026-11-25",
+  "runs": [
+    {
+      "attempt": "1",
+      "event": "workflow_dispatch",
+      "models": [
+        {
+          "ended_at": "2026-11-25T16:44:40Z",
+          "exit": 0,
+          "gguf": {
+            "file": "Qwen3.5-4B-Q4_K_M.gguf",
+            "repo": "ggml-org/Qwen3.5-4B-GGUF",
+            "revision": "8d43d974efc48399cb58957ad49c8b26bf5a109c",
+            "sha256": "217002fa8008ef4fc6d548353a3aebef055a96e6ff8e0e2c0953ef8254a89c14",
+            "size": 3032091584
+          },
+          "heartbeat_only": true,
+          "heartbeats": [
+            {
+              "at": "2026-11-25T16:44:39Z",
+              "self_test_ok": true,
+              "status": 401
+            }
+          ],
+          "jobs": [],
+          "llama_cpp": {
+            "archive_sha256": "9c58ebcd5a704e879cfadf2bbcb1fb1ec8ad4a5bec761fc58b3515864dd5e37a",
+            "build": "b12387-a956a852c",
+            "commit": "a956a852c9c8bc1fb07206364838ddef299178c0",
+            "tag": "b12387"
+          },
+          "machine": "ubuntu 24.04, 4 vCPU, 15.6 GiB",
+          "model": "qwen3.5-4b-q4_k_m",
+          "run": {
+            "attempt": "1",
+            "event": "workflow_dispatch",
+            "id": "45656749137",
+            "url": "https://github.com/alphabazaar/ai-league-runner/actions/runs/45656749137"
+          },
+          "self_test": {
+            "completion_per_second": 9.29,
+            "completion_tokens": 118,
+            "detail": "a JSON decision; a typical day's prompt would take about 5 min",
+            "finish_reason": "stop",
+            "ok": true,
+            "prompt_per_second": 19.43,
+            "prompt_tokens": 239,
+            "seconds": 24.9
+          },
+          "started_at": "2026-11-25T16:44:09Z"
+        }
+      ],
+      "run_id": "45656749137",
+      "url": "https://github.com/alphabazaar/ai-league-runner/actions/runs/45656749137"
+    }
+  ]
+}
