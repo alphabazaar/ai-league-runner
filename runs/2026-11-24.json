@@ -2552,6 +2552,2380 @@
       ],
       "run_id": "45332080305",
       "url": "https://github.com/alphabazaar/ai-league-runner/actions/runs/45332080305"
+    },
+    {
+      "attempt": "1",
+      "event": "workflow_dispatch",
+      "models": [
+        {
+          "ended_at": "2026-11-24T23:37:08Z",
+          "exit": 0,
+          "gguf": {
+            "file": "AFM-4.5B-Q8_0.gguf",
+            "repo": "arcee-ai/AFM-4.5B-GGUF",
+            "revision": "741fded55739927f94be7934a174c2bcfc751969",
+            "sha256": "2de4692fc3404ba302701753f4110610d3d8f88cf49294d5ce0f176e01cc8871",
+            "size": 4916265216
+          },
+          "heartbeat_only": false,
+          "heartbeats": [
+            {
+              "accepted": true,
+              "activated": true,
+              "at": "2026-11-24T21:16:02Z",
+              "problem": null,
+              "self_test_ok": true,
+              "status": 200
+            },
+            {
+              "accepted": true,
+              "activated": true,
+              "at": "2026-11-24T21:31:10Z",
+              "problem": null,
+              "self_test_ok": true,
+              "status": 200
+            },
+            {
+              "accepted": true,
+              "activated": true,
+              "at": "2026-11-24T21:46:17Z",
+              "problem": null,
+              "self_test_ok": true,
+              "status": 200
+            },
+            {
+              "accepted": true,
+              "activated": true,
+              "at": "2026-11-24T22:01:26Z",
+              "problem": null,
+              "self_test_ok": true,
+              "status": 200
+            },
+            {
+              "accepted": true,
+              "activated": true,
+              "at": "2026-11-24T22:16:34Z",
+              "problem": null,
+              "self_test_ok": true,
+              "status": 200
+            },
+            {
+              "accepted": true,
+              "activated": true,
+              "at": "2026-11-24T22:31:42Z",
+              "problem": null,
+              "self_test_ok": true,
+              "status": 200
+            },
+            {
+              "accepted": true,
+              "activated": true,
+              "at": "2026-11-24T22:46:50Z",
+              "problem": null,
+              "self_test_ok": true,
+              "status": 200
+            },
+            {
+              "accepted": true,
+              "activated": true,
+              "at": "2026-11-24T23:01:57Z",
+              "problem": null,
+              "self_test_ok": true,
+              "status": 200
+            },
+            {
+              "accepted": true,
+              "activated": true,
+              "at": "2026-11-24T23:17:05Z",
+              "problem": null,
+              "self_test_ok": true,
+              "status": 200
+            },
+            {
+              "accepted": true,
+              "activated": true,
+              "at": "2026-11-24T23:32:13Z",
+              "problem": null,
+              "self_test_ok": true,
+              "status": 200
+            }
+          ],
+          "jobs": [
+            {
+              "bot": "ai_afm_45b",
+              "created_at": "2026-11-24T23:35:02Z",
+              "decision": {
+                "action": "buy",
+                "position_size": 8,
+                "ticker": "ACHC",
+                "time_horizon": "medium"
+              },
+              "expires_at": "2026-11-25T00:05:02Z",
+              "finish_reason": "stop",
+              "http_status": 200,
+              "id": "20261124-ai_afm_45b",
+              "seconds": 93.6,
+              "started_at": "2026-11-24T23:35:14Z",
+              "status": "answered",
+              "timings": {
+                "cache_n": 6.0,
+                "predicted_ms": 25619.05,
+                "predicted_n": 109.0,
+                "predicted_per_second": 4.22,
+                "prompt_ms": 67999.08,
+                "prompt_n": 2909.0,
+                "prompt_per_second": 42.78,
+                "total_seconds": 93.6
+              },
+              "usage": {
+                "completion_tokens": 109,
+                "prompt_tokens": 2915,
+                "total_tokens": 3024
+              }
+            }
+          ],
+          "llama_cpp": {
+            "archive_sha256": "9c58ebcd5a704e879cfadf2bbcb1fb1ec8ad4a5bec761fc58b3515864dd5e37a",
+            "build": "b12387-a956a852c",
+            "commit": "a956a852c9c8bc1fb07206364838ddef299178c0",
+            "tag": "b12387"
+          },
+          "machine": "ubuntu 24.04, 4 vCPU, 15.3 GiB",
+          "model": "afm-4.5b-q8_0",
+          "run": {
+            "attempt": "1",
+            "event": "workflow_dispatch",
+            "id": "45488998795",
+            "url": "https://github.com/alphabazaar/ai-league-runner/actions/runs/45488998795"
+          },
+          "self_test": {
+            "completion_per_second": 6.28,
+            "completion_tokens": 100,
+            "detail": "a JSON decision; a typical day's prompt would take about 4 min",
+            "finish_reason": "stop",
+            "ok": true,
+            "prompt_per_second": 50.46,
+            "prompt_tokens": 221,
+            "seconds": 20.1
+          },
+          "started_at": "2026-11-24T21:15:37Z"
+        },
+        {
+          "ended_at": "2026-11-24T23:36:44Z",
+          "exit": 0,
+          "gguf": {
+            "file": "allenai_Olmo-3-7B-Instruct-Q4_K_M.gguf",
+            "repo": "bartowski/allenai_Olmo-3-7B-Instruct-GGUF",
+            "revision": "0d00999146ae9606a15cf049858a2ccf46fe0706",
+            "sha256": "f20a42d5d72d467c11aebd2de940389c4ad9511febf14957dbcfd3789bedf3bf",
+            "size": 4471601792
+          },
+          "heartbeat_only": false,
+          "heartbeats": [
+            {
+              "accepted": true,
+              "activated": true,
+              "at": "2026-11-24T21:16:15Z",
+              "problem": null,
+              "self_test_ok": true,
+              "status": 200
+            },
+            {
+              "accepted": true,
+              "activated": true,
+              "at": "2026-11-24T21:31:20Z",
+              "problem": null,
+              "self_test_ok": true,
+              "status": 200
+            },
+            {
+              "accepted": true,
+              "activated": true,
+              "at": "2026-11-24T21:46:27Z",
+              "problem": null,
+              "self_test_ok": true,
+              "status": 200
+            },
+            {
+              "accepted": true,
+              "activated": true,
+              "at": "2026-11-24T22:01:33Z",
+              "problem": null,
+              "self_test_ok": true,
+              "status": 200
+            },
+            {
+              "accepted": true,
+              "activated": true,
+              "at": "2026-11-24T22:16:39Z",
+              "problem": null,
+              "self_test_ok": true,
+              "status": 200
+            },
+            {
+              "accepted": true,
+              "activated": true,
+              "at": "2026-11-24T22:31:45Z",
+              "problem": null,
+              "self_test_ok": true,
+              "status": 200
+            },
+            {
+              "accepted": true,
+              "activated": true,
+              "at": "2026-11-24T22:46:51Z",
+              "problem": null,
+              "self_test_ok": true,
+              "status": 200
+            },
+            {
+              "accepted": true,
+              "activated": true,
+              "at": "2026-11-24T23:01:57Z",
+              "problem": null,
+              "self_test_ok": true,
+              "status": 200
+            },
+            {
+              "accepted": true,
+              "activated": true,
+              "at": "2026-11-24T23:17:02Z",
+              "problem": null,
+              "self_test_ok": true,
+              "status": 200
+            },
+            {
+              "accepted": true,
+              "activated": true,
+              "at": "2026-11-24T23:32:07Z",
+              "problem": null,
+              "self_test_ok": true,
+              "status": 200
+            }
+          ],
+          "jobs": [
+            {
+              "bot": "ai_olmo_3_7b",
+              "created_at": "2026-11-24T23:34:02Z",
+              "decision": {
+                "action": "buy",
+                "position_size": 8,
+                "ticker": "EMBC",
+                "time_horizon": "short"
+              },
+              "expires_at": "2026-11-25T00:04:02Z",
+              "finish_reason": "stop",
+              "http_status": 200,
+              "id": "20261124-ai_olmo_3_7b",
+              "seconds": 136.3,
+              "started_at": "2026-11-24T23:34:08Z",
+              "status": "answered",
+              "timings": {
+                "cache_n": 0.0,
+                "predicted_ms": 40355.62,
+                "predicted_n": 97.0,
+                "predicted_per_second": 2.38,
+                "prompt_ms": 95832.11,
+                "prompt_n": 2921.0,
+                "prompt_per_second": 30.48,
+                "total_seconds": 136.3
+              },
+              "usage": {
+                "completion_tokens": 97,
+                "prompt_tokens": 2921,
+                "total_tokens": 3018
+              }
+            }
+          ],
+          "llama_cpp": {
+            "archive_sha256": "9c58ebcd5a704e879cfadf2bbcb1fb1ec8ad4a5bec761fc58b3515864dd5e37a",
+            "build": "b12387-a956a852c",
+            "commit": "a956a852c9c8bc1fb07206364838ddef299178c0",
+            "tag": "b12387"
+          },
+          "machine": "ubuntu 24.04, 4 vCPU, 15.3 GiB",
+          "model": "allenai_olmo-3-7b-instruct-q4_k_m",
+          "run": {
+            "attempt": "1",
+            "event": "workflow_dispatch",
+            "id": "45488998795",
+            "url": "https://github.com/alphabazaar/ai-league-runner/actions/runs/45488998795"
+          },
+          "self_test": {
+            "completion_per_second": 4.36,
+            "completion_tokens": 100,
+            "detail": "a JSON decision; a typical day's prompt would take about 6 min",
+            "finish_reason": "stop",
+            "ok": true,
+            "prompt_per_second": 32.28,
+            "prompt_tokens": 220,
+            "seconds": 29.5
+          },
+          "started_at": "2026-11-24T21:15:40Z"
+        },
+        {
+          "ended_at": "2026-11-24T23:40:17Z",
+          "exit": 0,
+          "gguf": {
+            "file": "Apertus-8B-Instruct-2509-Q4_K_M.gguf",
+            "repo": "unsloth/Apertus-8B-Instruct-2509-GGUF",
+            "revision": "61c32783830424ac7a6d0fd80d4166e29dbaee06",
+            "sha256": "87e7f0eb5a1d33e1a8ea4e7fdd2363764e0465061dd92962e0073aec31a7944d",
+            "size": 5057885440
+          },
+          "heartbeat_only": false,
+          "heartbeats": [
+            {
+              "accepted": true,
+              "activated": true,
+              "at": "2026-11-24T21:17:14Z",
+              "problem": null,
+              "self_test_ok": true,
+              "status": 200
+            },
+            {
+              "accepted": true,
+              "activated": true,
+              "at": "2026-11-24T21:32:19Z",
+              "problem": null,
+              "self_test_ok": true,
+              "status": 200
+            },
+            {
+              "accepted": true,
+              "activated": true,
+              "at": "2026-11-24T21:47:26Z",
+              "problem": null,
+              "self_test_ok": true,
+              "status": 200
+            },
+            {
+              "accepted": true,
+              "activated": true,
+              "at": "2026-11-24T22:02:32Z",
+              "problem": null,
+              "self_test_ok": true,
+              "status": 200
+            },
+            {
+              "accepted": true,
+              "activated": true,
+              "at": "2026-11-24T22:17:37Z",
+              "problem": null,
+              "self_test_ok": true,
+              "status": 200
+            },
+            {
+              "accepted": true,
+              "activated": true,
+              "at": "2026-11-24T22:32:44Z",
+              "problem": null,
+              "self_test_ok": true,
+              "status": 200
+            },
+            {
+              "accepted": true,
+              "activated": true,
+              "at": "2026-11-24T22:47:50Z",
+              "problem": null,
+              "self_test_ok": true,
+              "status": 200
+            },
+            {
+              "accepted": true,
+              "activated": true,
+              "at": "2026-11-24T23:03:01Z",
+              "problem": null,
+              "self_test_ok": true,
+              "status": 200
+            },
+            {
+              "accepted": true,
+              "activated": true,
+              "at": "2026-11-24T23:18:06Z",
+              "problem": null,
+              "self_test_ok": true,
+              "status": 200
+            },
+            {
+              "accepted": true,
+              "activated": true,
+              "at": "2026-11-24T23:33:11Z",
+              "problem": null,
+              "self_test_ok": true,
+              "status": 200
+            }
+          ],
+          "jobs": [
+            {
+              "bot": "ai_apertus_8b",
+              "created_at": "2026-11-24T23:37:02Z",
+              "decision": {
+                "action": "buy",
+                "position_size": 12,
+                "ticker": "EMBC",
+                "time_horizon": "medium"
+              },
+              "expires_at": "2026-11-25T00:07:02Z",
+              "finish_reason": "stop",
+              "http_status": 200,
+              "id": "20261124-ai_apertus_8b",
+              "seconds": 163.3,
+              "started_at": "2026-11-24T23:37:13Z",
+              "status": "answered",
+              "timings": {
+                "cache_n": 4.0,
+                "predicted_ms": 40560.15,
+                "predicted_n": 112.0,
+                "predicted_per_second": 2.74,
+                "prompt_ms": 122697.21,
+                "prompt_n": 3242.0,
+                "prompt_per_second": 26.42,
+                "total_seconds": 163.3
+              },
+              "usage": {
+                "completion_tokens": 112,
+                "prompt_tokens": 3246,
+                "total_tokens": 3358
+              }
+            }
+          ],
+          "llama_cpp": {
+            "archive_sha256": "9c58ebcd5a704e879cfadf2bbcb1fb1ec8ad4a5bec761fc58b3515864dd5e37a",
+            "build": "b12387-a956a852c",
+            "commit": "a956a852c9c8bc1fb07206364838ddef299178c0",
+            "tag": "b12387"
+          },
+          "machine": "ubuntu 24.04, 4 vCPU, 15.3 GiB",
+          "model": "apertus-8b-instruct-2509-q4_k_m",
+          "run": {
+            "attempt": "1",
+            "event": "workflow_dispatch",
+            "id": "45488998795",
+            "url": "https://github.com/alphabazaar/ai-league-runner/actions/runs/45488998795"
+          },
+          "self_test": {
+            "completion_per_second": 3.99,
+            "completion_tokens": 150,
+            "detail": "a JSON decision; a typical day's prompt would take about 6 min",
+            "finish_reason": "stop",
+            "ok": true,
+            "prompt_per_second": 31.1,
+            "prompt_tokens": 242,
+            "seconds": 45.1
+          },
+          "started_at": "2026-11-24T21:16:24Z"
+        },
+        {
+          "ended_at": "2026-11-24T23:51:24Z",
+          "exit": 0,
+          "gguf": {
+            "file": "DeepSeek-R1-Distill-Qwen-7B-Q4_K_M.gguf",
+            "repo": "bartowski/DeepSeek-R1-Distill-Qwen-7B-GGUF",
+            "revision": "361004151d4f4f6b446dc5e6d46fbf4422a80d5f",
+            "sha256": "731ece8d06dc7eda6f6572997feb9ee1258db0784827e642909d9b565641937b",
+            "size": 4683073504
+          },
+          "heartbeat_only": false,
+          "heartbeats": [
+            {
+              "accepted": true,
+              "activated": true,
+              "at": "2026-11-24T21:17:19Z",
+              "problem": null,
+              "self_test_ok": true,
+              "status": 200
+            },
+            {
+              "accepted": true,
+              "activated": true,
+              "at": "2026-11-24T21:32:25Z",
+              "problem": null,
+              "self_test_ok": true,
+              "status": 200
+            },
+            {
+              "accepted": true,
+              "activated": true,
+              "at": "2026-11-24T21:47:32Z",
+              "problem": null,
+              "self_test_ok": true,
+              "status": 200
+            },
+            {
+              "accepted": true,
+              "activated": true,
+              "at": "2026-11-24T22:02:38Z",
+              "problem": null,
+              "self_test_ok": true,
+              "status": 200
+            },
+            {
+              "accepted": true,
+              "activated": true,
+              "at": "2026-11-24T22:17:44Z",
+              "problem": null,
+              "self_test_ok": true,
+              "status": 200
+            },
+            {
+              "accepted": true,
+              "activated": true,
+              "at": "2026-11-24T22:32:50Z",
+              "problem": null,
+              "self_test_ok": true,
+              "status": 200
+            },
+            {
+              "accepted": true,
+              "activated": true,
+              "at": "2026-11-24T22:47:55Z",
+              "problem": null,
+              "self_test_ok": true,
+              "status": 200
+            },
+            {
+              "accepted": true,
+              "activated": true,
+              "at": "2026-11-24T23:03:01Z",
+              "problem": null,
+              "self_test_ok": true,
+              "status": 200
+            },
+            {
+              "accepted": true,
+              "activated": true,
+              "at": "2026-11-24T23:18:06Z",
+              "problem": null,
+              "self_test_ok": true,
+              "status": 200
+            },
+            {
+              "accepted": true,
+              "activated": true,
+              "at": "2026-11-24T23:33:11Z",
+              "problem": null,
+              "self_test_ok": true,
+              "status": 200
+            },
+            {
+              "accepted": true,
+              "activated": true,
+              "at": "2026-11-24T23:51:24Z",
+              "problem": null,
+              "self_test_ok": true,
+              "status": 200
+            }
+          ],
+          "jobs": [
+            {
+              "bot": "ai_deepseek_r1_7b",
+              "created_at": "2026-11-24T23:44:02Z",
+              "decision": {
+                "action": "buy",
+                "position_size": 10,
+                "ticker": "ULCC",
+                "time_horizon": "medium"
+              },
+              "expires_at": "2026-11-25T00:14:02Z",
+              "finish_reason": "stop",
+              "http_status": 200,
+              "id": "20261124-ai_deepseek_r1_7b",
+              "seconds": 408.2,
+              "started_at": "2026-11-24T23:44:16Z",
+              "status": "answered",
+              "timings": {
+                "cache_n": 3.0,
+                "predicted_ms": 323951.8,
+                "predicted_n": 1113.0,
+                "predicted_per_second": 3.43,
+                "prompt_ms": 84251.1,
+                "prompt_n": 3066.0,
+                "prompt_per_second": 36.39,
+                "reasoning_chars": 2877.0,
+                "total_seconds": 408.2
+              },
+              "usage": {
+                "completion_tokens": 1113,
+                "prompt_tokens": 3069,
+                "total_tokens": 4182
+              }
+            }
+          ],
+          "llama_cpp": {
+            "archive_sha256": "9c58ebcd5a704e879cfadf2bbcb1fb1ec8ad4a5bec761fc58b3515864dd5e37a",
+            "build": "b12387-a956a852c",
+            "commit": "a956a852c9c8bc1fb07206364838ddef299178c0",
+            "tag": "b12387"
+          },
+          "machine": "ubuntu 24.04, 4 vCPU, 15.3 GiB",
+          "model": "deepseek-r1-distill-qwen-7b-q4_k_m",
+          "run": {
+            "attempt": "1",
+            "event": "workflow_dispatch",
+            "id": "45488998795",
+            "url": "https://github.com/alphabazaar/ai-league-runner/actions/runs/45488998795"
+          },
+          "self_test": {
+            "completion_per_second": 4.6,
+            "completion_tokens": 533,
+            "detail": "a JSON decision; a typical day's prompt would take about 5 min",
+            "finish_reason": "stop",
+            "ok": true,
+            "prompt_per_second": 38.15,
+            "prompt_tokens": 220,
+            "seconds": 121.5
+          },
+          "started_at": "2026-11-24T21:15:13Z"
+        },
+        {
+          "ended_at": "2026-11-24T23:43:13Z",
+          "exit": 0,
+          "gguf": {
+            "file": "Falcon-H1-7B-Instruct-Q4_K_M.gguf",
+            "repo": "tiiuae/Falcon-H1-7B-Instruct-GGUF",
+            "revision": "058c8c8f08e57da131ba5f070f9ff1280d141c39",
+            "sha256": "145def0b4cd36500bf538ed7ac895b5c1851e02e802b2d1c12ffa6afdbaff25d",
+            "size": 4598344960
+          },
+          "heartbeat_only": false,
+          "heartbeats": [
+            {
+              "accepted": true,
+              "activated": true,
+              "at": "2026-11-24T21:15:49Z",
+              "problem": null,
+              "self_test_ok": true,
+              "status": 200
+            },
+            {
+              "accepted": true,
+              "activated": true,
+              "at": "2026-11-24T21:30:57Z",
+              "problem": null,
+              "self_test_ok": true,
+              "status": 200
+            },
+            {
+              "accepted": true,
+              "activated": true,
+              "at": "2026-11-24T21:46:04Z",
+              "problem": null,
+              "self_test_ok": true,
+              "status": 200
+            },
+            {
+              "accepted": true,
+              "activated": true,
+              "at": "2026-11-24T22:01:13Z",
+              "problem": null,
+              "self_test_ok": true,
+              "status": 200
+            },
+            {
+              "accepted": true,
+              "activated": true,
+              "at": "2026-11-24T22:16:21Z",
+              "problem": null,
+              "self_test_ok": true,
+              "status": 200
+            },
+            {
+              "accepted": true,
+              "activated": true,
+              "at": "2026-11-24T22:31:28Z",
+              "problem": null,
+              "self_test_ok": true,
+              "status": 200
+            },
+            {
+              "accepted": true,
+              "activated": true,
+              "at": "2026-11-24T22:46:36Z",
+              "problem": null,
+              "self_test_ok": true,
+              "status": 200
+            },
+            {
+              "accepted": true,
+              "activated": true,
+              "at": "2026-11-24T23:01:45Z",
+              "problem": null,
+              "self_test_ok": true,
+              "status": 200
+            },
+            {
+              "accepted": true,
+              "activated": true,
+              "at": "2026-11-24T23:16:52Z",
+              "problem": null,
+              "self_test_ok": true,
+              "status": 200
+            },
+            {
+              "accepted": true,
+              "activated": true,
+              "at": "2026-11-24T23:31:59Z",
+              "problem": null,
+              "self_test_ok": true,
+              "status": 200
+            }
+          ],
+          "jobs": [
+            {
+              "bot": "ai_falcon_h1_7b",
+              "created_at": "2026-11-24T23:40:04Z",
+              "decision": {
+                "action": "buy",
+                "position_size": 10,
+                "ticker": "ULCC",
+                "time_horizon": "medium"
+              },
+              "expires_at": "2026-11-25T00:10:04Z",
+              "finish_reason": "stop",
+              "http_status": 200,
+              "id": "20261124-ai_falcon_h1_7b",
+              "seconds": 149.5,
+              "started_at": "2026-11-24T23:40:23Z",
+              "status": "answered",
+              "timings": {
+                "cache_n": 0.0,
+                "predicted_ms": 30721.85,
+                "predicted_n": 122.0,
+                "predicted_per_second": 3.94,
+                "prompt_ms": 118737.29,
+                "prompt_n": 3575.0,
+                "prompt_per_second": 30.11,
+                "total_seconds": 149.5
+              },
+              "usage": {
+                "completion_tokens": 122,
+                "prompt_tokens": 3575,
+                "total_tokens": 3697
+              }
+            }
+          ],
+          "llama_cpp": {
+            "archive_sha256": "9c58ebcd5a704e879cfadf2bbcb1fb1ec8ad4a5bec761fc58b3515864dd5e37a",
+            "build": "b12387-a956a852c",
+            "commit": "a956a852c9c8bc1fb07206364838ddef299178c0",
+            "tag": "b12387"
+          },
+          "machine": "ubuntu 24.04, 4 vCPU, 15.3 GiB",
+          "model": "falcon-h1-7b-instruct-q4_k_m",
+          "run": {
+            "attempt": "1",
+            "event": "workflow_dispatch",
+            "id": "45488998795",
+            "url": "https://github.com/alphabazaar/ai-league-runner/actions/runs/45488998795"
+          },
+          "self_test": {
+            "completion_per_second": 4.38,
+            "completion_tokens": 130,
+            "detail": "a JSON decision; a typical day's prompt would take about 6 min",
+            "finish_reason": "stop",
+            "ok": true,
+            "prompt_per_second": 30.62,
+            "prompt_tokens": 268,
+            "seconds": 38.2
+          },
+          "started_at": "2026-11-24T21:15:06Z"
+        },
+        {
+          "ended_at": "2026-11-24T23:31:57Z",
+          "exit": 0,
+          "gguf": {
+            "file": "gemma-4-E4B_q4_0-it.gguf",
+            "repo": "google/gemma-4-E4B-it-qat-q4_0-gguf",
+            "revision": "4b4a2c1d584be7264f87aac328a1bc739ce81b6c",
+            "sha256": "676c35070db6dbe52f93e9c864ee0fba4eddea94b9c875d9cb10daff453fbaee",
+            "size": 5154941280
+          },
+          "heartbeat_only": false,
+          "heartbeats": [
+            {
+              "accepted": true,
+              "activated": true,
+              "at": "2026-11-24T21:16:49Z",
+              "problem": null,
+              "self_test_ok": true,
+              "status": 200
+            },
+            {
+              "accepted": true,
+              "activated": true,
+              "at": "2026-11-24T21:31:56Z",
+              "problem": null,
+              "self_test_ok": true,
+              "status": 200
+            },
+            {
+              "accepted": true,
+              "activated": true,
+              "at": "2026-11-24T21:47:04Z",
+              "problem": null,
+              "self_test_ok": true,
+              "status": 200
+            },
+            {
+              "accepted": true,
+              "activated": true,
+              "at": "2026-11-24T22:02:12Z",
+              "problem": null,
+              "self_test_ok": true,
+              "status": 200
+            },
+            {
+              "accepted": true,
+              "activated": true,
+              "at": "2026-11-24T22:17:18Z",
+              "problem": null,
+              "self_test_ok": true,
+              "status": 200
+            },
+            {
+              "accepted": true,
+              "activated": true,
+              "at": "2026-11-24T22:32:27Z",
+              "problem": null,
+              "self_test_ok": true,
+              "status": 200
+            },
+            {
+              "accepted": true,
+              "activated": true,
+              "at": "2026-11-24T22:47:34Z",
+              "problem": null,
+              "self_test_ok": true,
+              "status": 200
+            },
+            {
+              "accepted": true,
+              "activated": true,
+              "at": "2026-11-24T23:02:49Z",
+              "problem": null,
+              "self_test_ok": true,
+              "status": 200
+            },
+            {
+              "accepted": true,
+              "activated": true,
+              "at": "2026-11-24T23:17:57Z",
+              "problem": null,
+              "self_test_ok": true,
+              "status": 200
+            }
+          ],
+          "jobs": [
+            {
+              "bot": "ai_gemma_4_e4b",
+              "created_at": "2026-11-24T23:28:03Z",
+              "decision": {
+                "action": "buy",
+                "position_size": 10,
+                "ticker": "ULCC",
+                "time_horizon": "medium"
+              },
+              "expires_at": "2026-11-24T23:58:03Z",
+              "finish_reason": "stop",
+              "http_status": 200,
+              "id": "20261124-ai_gemma_4_e4b",
+              "seconds": 194.8,
+              "started_at": "2026-11-24T23:28:22Z",
+              "status": "answered",
+              "timings": {
+                "cache_n": 0.0,
+                "predicted_ms": 146232.5,
+                "predicted_n": 1084.0,
+                "predicted_per_second": 7.41,
+                "prompt_ms": 48505.75,
+                "prompt_n": 3183.0,
+                "prompt_per_second": 65.62,
+                "reasoning_chars": 3102.0,
+                "total_seconds": 194.8
+              },
+              "usage": {
+                "completion_tokens": 1084,
+                "prompt_tokens": 3183,
+                "total_tokens": 4267
+              }
+            }
+          ],
+          "llama_cpp": {
+            "archive_sha256": "9c58ebcd5a704e879cfadf2bbcb1fb1ec8ad4a5bec761fc58b3515864dd5e37a",
+            "build": "b12387-a956a852c",
+            "commit": "a956a852c9c8bc1fb07206364838ddef299178c0",
+            "tag": "b12387"
+          },
+          "machine": "ubuntu 24.04, 4 vCPU, 15.3 GiB",
+          "model": "gemma-4-e4b_q4_0-it",
+          "run": {
+            "attempt": "1",
+            "event": "workflow_dispatch",
+            "id": "45488998795",
+            "url": "https://github.com/alphabazaar/ai-league-runner/actions/runs/45488998795"
+          },
+          "self_test": {
+            "completion_per_second": 8.97,
+            "completion_tokens": 892,
+            "detail": "a JSON decision; a typical day's prompt would take about 3 min",
+            "finish_reason": "stop",
+            "ok": true,
+            "prompt_per_second": 69.07,
+            "prompt_tokens": 245,
+            "seconds": 102.9
+          },
+          "started_at": "2026-11-24T21:15:01Z"
+        },
+        {
+          "ended_at": "2026-11-24T23:40:21Z",
+          "exit": 0,
+          "gguf": {
+            "file": "gpt-oss-20b-MXFP4.gguf",
+            "repo": "ggml-org/gpt-oss-20b-GGUF",
+            "revision": "41e8a94d15d62070b36cf4553a0250717ecf46b8",
+            "sha256": "27cd6c432c7672cb812a92f611cf3ba7bbc35928262bb1e1253ff4ee6ae35901",
+            "size": 12109566624
+          },
+          "heartbeat_only": false,
+          "heartbeats": [
+            {
+              "accepted": true,
+              "activated": true,
+              "at": "2026-11-24T21:18:47Z",
+              "problem": null,
+              "self_test_ok": true,
+              "status": 200
+            },
+            {
+              "accepted": true,
+              "activated": true,
+              "at": "2026-11-24T21:33:53Z",
+              "problem": null,
+              "self_test_ok": true,
+              "status": 200
+            },
+            {
+              "accepted": true,
+              "activated": true,
+              "at": "2026-11-24T21:49:00Z",
+              "problem": null,
+              "self_test_ok": true,
+              "status": 200
+            },
+            {
+              "accepted": true,
+              "activated": true,
+              "at": "2026-11-24T22:04:06Z",
+              "problem": null,
+              "self_test_ok": true,
+              "status": 200
+            },
+            {
+              "accepted": true,
+              "activated": true,
+              "at": "2026-11-24T22:19:07Z",
+              "problem": null,
+              "self_test_ok": true,
+              "status": 200
+            },
+            {
+              "accepted": true,
+              "activated": true,
+              "at": "2026-11-24T22:34:14Z",
+              "problem": null,
+              "self_test_ok": true,
+              "status": 200
+            },
+            {
+              "accepted": true,
+              "activated": true,
+              "at": "2026-11-24T22:49:19Z",
+              "problem": null,
+              "self_test_ok": true,
+              "status": 200
+            },
+            {
+              "accepted": true,
+              "activated": true,
+              "at": "2026-11-24T23:04:29Z",
+              "problem": null,
+              "self_test_ok": true,
+              "status": 200
+            },
+            {
+              "accepted": true,
+              "activated": true,
+              "at": "2026-11-24T23:19:34Z",
+              "problem": null,
+              "self_test_ok": true,
+              "status": 200
+            },
+            {
+              "accepted": true,
+              "activated": true,
+              "at": "2026-11-24T23:40:20Z",
+              "problem": null,
+              "self_test_ok": true,
+              "status": 200
+            }
+          ],
+          "jobs": [
+            {
+              "bot": "ai_gpt_oss_20b_mxfp4",
+              "created_at": "2026-11-24T23:33:02Z",
+              "decision": {
+                "action": "buy",
+                "position_size": 10,
+                "ticker": "ULCC",
+                "time_horizon": "medium"
+              },
+              "expires_at": "2026-11-25T00:03:02Z",
+              "finish_reason": "stop",
+              "http_status": 200,
+              "id": "20261124-ai_gpt_oss_20b_mxfp4",
+              "seconds": 400.9,
+              "started_at": "2026-11-24T23:33:19Z",
+              "status": "answered",
+              "timings": {
+                "cache_n": 0.0,
+                "predicted_ms": 253565.45,
+                "predicted_n": 1634.0,
+                "predicted_per_second": 6.44,
+                "prompt_ms": 147277.35,
+                "prompt_n": 2937.0,
+                "prompt_per_second": 19.94,
+                "reasoning_chars": 5378.0,
+                "total_seconds": 400.9
+              },
+              "usage": {
+                "completion_tokens": 1634,
+                "prompt_tokens": 2937,
+                "total_tokens": 4571
+              }
+            }
+          ],
+          "llama_cpp": {
+            "archive_sha256": "9c58ebcd5a704e879cfadf2bbcb1fb1ec8ad4a5bec761fc58b3515864dd5e37a",
+            "build": "b12387-a956a852c",
+            "commit": "a956a852c9c8bc1fb07206364838ddef299178c0",
+            "tag": "b12387"
+          },
+          "machine": "ubuntu 24.04, 4 vCPU, 15.3 GiB",
+          "model": "gpt-oss-20b-mxfp4",
+          "run": {
+            "attempt": "1",
+            "event": "workflow_dispatch",
+            "id": "45488998795",
+            "url": "https://github.com/alphabazaar/ai-league-runner/actions/runs/45488998795"
+          },
+          "self_test": {
+            "completion_per_second": 8.46,
+            "completion_tokens": 826,
+            "detail": "a JSON decision; a typical day's prompt would take about 6 min",
+            "finish_reason": "stop",
+            "ok": true,
+            "prompt_per_second": 16.99,
+            "prompt_tokens": 277,
+            "seconds": 113.8
+          },
+          "started_at": "2026-11-24T21:16:33Z"
+        },
+        {
+          "ended_at": "2026-11-25T00:09:11Z",
+          "exit": 0,
+          "gguf": {
+            "file": "granite-4.2-8b-Q4_K_M.gguf",
+            "repo": "ibm-granite/granite-4.2-8b-GGUF",
+            "revision": "93f3f6a8938ee922b784cf4e5b4203cd3428df8f",
+            "sha256": "16a9369d0805f80b7377d25d87f937a90c05dc04ad79173a52001e42c9aab311",
+            "size": 5347917952
+          },
+          "heartbeat_only": false,
+          "heartbeats": [
+            {
+              "accepted": true,
+              "activated": true,
+              "at": "2026-11-24T21:25:15Z",
+              "problem": null,
+              "self_test_ok": true,
+              "status": 200
+            },
+            {
+              "accepted": true,
+              "activated": true,
+              "at": "2026-11-24T21:40:22Z",
+              "problem": null,
+              "self_test_ok": true,
+              "status": 200
+            },
+            {
+              "accepted": true,
+              "activated": true,
+              "at": "2026-11-24T21:55:29Z",
+              "problem": null,
+              "self_test_ok": true,
+              "status": 200
+            },
+            {
+              "accepted": true,
+              "activated": true,
+              "at": "2026-11-24T22:10:36Z",
+              "problem": null,
+              "self_test_ok": true,
+              "status": 200
+            },
+            {
+              "accepted": true,
+              "activated": true,
+              "at": "2026-11-24T22:25:41Z",
+              "problem": null,
+              "self_test_ok": true,
+              "status": 200
+            },
+            {
+              "accepted": true,
+              "activated": true,
+              "at": "2026-11-24T22:40:49Z",
+              "problem": null,
+              "self_test_ok": true,
+              "status": 200
+            },
+            {
+              "accepted": true,
+              "activated": true,
+              "at": "2026-11-24T22:55:55Z",
+              "problem": null,
+              "self_test_ok": true,
+              "status": 200
+            },
+            {
+              "accepted": true,
+              "activated": true,
+              "at": "2026-11-24T23:11:08Z",
+              "problem": null,
+              "self_test_ok": true,
+              "status": 200
+            },
+            {
+              "accepted": true,
+              "activated": true,
+              "at": "2026-11-24T23:26:13Z",
+              "problem": null,
+              "self_test_ok": true,
+              "status": 200
+            },
+            {
+              "accepted": true,
+              "activated": true,
+              "at": "2026-11-24T23:41:19Z",
+              "problem": null,
+              "self_test_ok": true,
+              "status": 200
+            },
+            {
+              "accepted": true,
+              "activated": true,
+              "at": "2026-11-25T00:09:11Z",
+              "problem": null,
+              "self_test_ok": true,
+              "status": 200
+            }
+          ],
+          "jobs": [
+            {
+              "bot": "ai_granite_42_8b",
+              "created_at": "2026-11-24T23:42:02Z",
+              "decision": {
+                "action": "buy",
+                "position_size": 10,
+                "ticker": "ACHC",
+                "time_horizon": "medium"
+              },
+              "expires_at": "2026-11-25T00:12:02Z",
+              "finish_reason": "stop",
+              "http_status": 200,
+              "id": "20261124-ai_granite_42_8b",
+              "seconds": 1590.5,
+              "started_at": "2026-11-24T23:42:20Z",
+              "status": "answered",
+              "timings": {
+                "cache_n": 5.0,
+                "predicted_ms": 1271340.32,
+                "predicted_n": 2946.0,
+                "predicted_per_second": 2.32,
+                "prompt_ms": 319015.65,
+                "prompt_n": 3113.0,
+                "prompt_per_second": 9.76,
+                "reasoning_chars": 10153.0,
+                "total_seconds": 1590.5
+              },
+              "usage": {
+                "completion_tokens": 2946,
+                "prompt_tokens": 3118,
+                "total_tokens": 6064
+              }
+            }
+          ],
+          "llama_cpp": {
+            "archive_sha256": "9c58ebcd5a704e879cfadf2bbcb1fb1ec8ad4a5bec761fc58b3515864dd5e37a",
+            "build": "b12387-a956a852c",
+            "commit": "a956a852c9c8bc1fb07206364838ddef299178c0",
+            "tag": "b12387"
+          },
+          "machine": "ubuntu 24.04, 4 vCPU, 15.6 GiB",
+          "model": "granite-4.2-8b-q4_k_m",
+          "run": {
+            "attempt": "1",
+            "event": "workflow_dispatch",
+            "id": "45488998795",
+            "url": "https://github.com/alphabazaar/ai-league-runner/actions/runs/45488998795"
+          },
+          "self_test": {
+            "completion_per_second": 3.5,
+            "completion_tokens": 1756,
+            "detail": "a JSON decision; a typical day's prompt would take about 14 min",
+            "finish_reason": "stop",
+            "ok": true,
+            "prompt_per_second": 11.09,
+            "prompt_tokens": 241,
+            "seconds": 523.6
+          },
+          "started_at": "2026-11-24T21:16:21Z"
+        },
+        {
+          "ended_at": "2026-11-24T23:44:31Z",
+          "exit": 0,
+          "gguf": {
+            "file": "jamba-reasoning-3b-Q4_K_M.gguf",
+            "repo": "ai21labs/AI21-Jamba-Reasoning-3B-GGUF",
+            "revision": "462e08a43c3c32f6b8b85f79ff0796e484d7b65a",
+            "sha256": "5c8edf36ec3ad9792a639db8d6865e479038226cf8fc71ef47331c611854f6c8",
+            "size": 1932698048
+          },
+          "heartbeat_only": false,
+          "heartbeats": [
+            {
+              "accepted": true,
+              "activated": true,
+              "at": "2026-11-24T21:17:38Z",
+              "problem": null,
+              "self_test_ok": true,
+              "status": 200
+            },
+            {
+              "accepted": true,
+              "activated": true,
+              "at": "2026-11-24T21:32:47Z",
+              "problem": null,
+              "self_test_ok": true,
+              "status": 200
+            },
+            {
+              "accepted": true,
+              "activated": true,
+              "at": "2026-11-24T21:47:56Z",
+              "problem": null,
+              "self_test_ok": true,
+              "status": 200
+            },
+            {
+              "accepted": true,
+              "activated": true,
+              "at": "2026-11-24T22:03:06Z",
+              "problem": null,
+              "self_test_ok": true,
+              "status": 200
+            },
+            {
+              "accepted": true,
+              "activated": true,
+              "at": "2026-11-24T22:18:14Z",
+              "problem": null,
+              "self_test_ok": true,
+              "status": 200
+            },
+            {
+              "accepted": true,
+              "activated": true,
+              "at": "2026-11-24T22:33:24Z",
+              "problem": null,
+              "self_test_ok": true,
+              "status": 200
+            },
+            {
+              "accepted": true,
+              "activated": true,
+              "at": "2026-11-24T22:48:33Z",
+              "problem": null,
+              "self_test_ok": true,
+              "status": 200
+            },
+            {
+              "accepted": true,
+              "activated": true,
+              "at": "2026-11-24T23:03:41Z",
+              "problem": null,
+              "self_test_ok": true,
+              "status": 200
+            },
+            {
+              "accepted": true,
+              "activated": true,
+              "at": "2026-11-24T23:18:50Z",
+              "problem": null,
+              "self_test_ok": true,
+              "status": 200
+            },
+            {
+              "accepted": true,
+              "activated": true,
+              "at": "2026-11-24T23:33:59Z",
+              "problem": null,
+              "self_test_ok": true,
+              "status": 200
+            }
+          ],
+          "jobs": [
+            {
+              "bot": "ai_jamba_reason_3b",
+              "created_at": "2026-11-24T23:41:02Z",
+              "decision": {
+                "action": "buy",
+                "position_size": 5,
+                "ticker": "EMBC",
+                "time_horizon": "medium"
+              },
+              "expires_at": "2026-11-25T00:11:02Z",
+              "finish_reason": "stop",
+              "http_status": 200,
+              "id": "20261124-ai_jamba_reason_3b",
+              "seconds": 187.4,
+              "started_at": "2026-11-24T23:41:03Z",
+              "status": "answered",
+              "timings": {
+                "cache_n": 0.0,
+                "predicted_ms": 53282.39,
+                "predicted_n": 592.0,
+                "predicted_per_second": 11.09,
+                "prompt_ms": 134120.91,
+                "prompt_n": 3439.0,
+                "prompt_per_second": 25.64,
+                "reasoning_chars": 1874.0,
+                "total_seconds": 187.4
+              },
+              "usage": {
+                "completion_tokens": 592,
+                "prompt_tokens": 3439,
+                "total_tokens": 4031
+              }
+            }
+          ],
+          "llama_cpp": {
+            "archive_sha256": "9c58ebcd5a704e879cfadf2bbcb1fb1ec8ad4a5bec761fc58b3515864dd5e37a",
+            "build": "b12387-a956a852c",
+            "commit": "a956a852c9c8bc1fb07206364838ddef299178c0",
+            "tag": "b12387"
+          },
+          "machine": "ubuntu 24.04, 4 vCPU, 15.6 GiB",
+          "model": "jamba-reasoning-3b-q4_k_m",
+          "run": {
+            "attempt": "1",
+            "event": "workflow_dispatch",
+            "id": "45488998795",
+            "url": "https://github.com/alphabazaar/ai-league-runner/actions/runs/45488998795"
+          },
+          "self_test": {
+            "completion_per_second": 11.25,
+            "completion_tokens": 1611,
+            "detail": "a JSON decision; a typical day's prompt would take about 5 min",
+            "finish_reason": "stop",
+            "ok": true,
+            "prompt_per_second": 25.24,
+            "prompt_tokens": 293,
+            "seconds": 154.7
+          },
+          "started_at": "2026-11-24T21:14:58Z"
+        },
+        {
+          "ended_at": "2026-11-24T23:45:22Z",
+          "exit": 0,
+          "gguf": {
+            "file": "Llama-3.2-3B-Instruct-Q8_0.gguf",
+            "repo": "bartowski/Llama-3.2-3B-Instruct-GGUF",
+            "revision": "5ab33fa94d1d04e903623ae72c95d1696f09f9e8",
+            "sha256": "b5607b5090a8280063fff2d706bb3408ca6542341b06aab39c3eca0a28575921",
+            "size": 3421899296
+          },
+          "heartbeat_only": false,
+          "heartbeats": [
+            {
+              "accepted": true,
+              "activated": true,
+              "at": "2026-11-24T21:15:03Z",
+              "problem": null,
+              "self_test_ok": true,
+              "status": 200
+            },
+            {
+              "accepted": true,
+              "activated": true,
+              "at": "2026-11-24T21:30:12Z",
+              "problem": null,
+              "self_test_ok": true,
+              "status": 200
+            },
+            {
+              "accepted": true,
+              "activated": true,
+              "at": "2026-11-24T21:45:21Z",
+              "problem": null,
+              "self_test_ok": true,
+              "status": 200
+            },
+            {
+              "accepted": true,
+              "activated": true,
+              "at": "2026-11-24T22:00:31Z",
+              "problem": null,
+              "self_test_ok": true,
+              "status": 200
+            },
+            {
+              "accepted": true,
+              "activated": true,
+              "at": "2026-11-24T22:15:40Z",
+              "problem": null,
+              "self_test_ok": true,
+              "status": 200
+            },
+            {
+              "accepted": true,
+              "activated": true,
+              "at": "2026-11-24T22:30:55Z",
+              "problem": null,
+              "self_test_ok": true,
+              "status": 200
+            },
+            {
+              "accepted": true,
+              "activated": true,
+              "at": "2026-11-24T22:46:05Z",
+              "problem": null,
+              "self_test_ok": true,
+              "status": 200
+            },
+            {
+              "accepted": true,
+              "activated": true,
+              "at": "2026-11-24T23:01:14Z",
+              "problem": null,
+              "self_test_ok": true,
+              "status": 200
+            },
+            {
+              "accepted": true,
+              "activated": true,
+              "at": "2026-11-24T23:16:22Z",
+              "problem": null,
+              "self_test_ok": true,
+              "status": 200
+            },
+            {
+              "accepted": true,
+              "activated": true,
+              "at": "2026-11-24T23:31:30Z",
+              "problem": null,
+              "self_test_ok": true,
+              "status": 200
+            }
+          ],
+          "jobs": [
+            {
+              "bot": "ai_llama_32_3b",
+              "created_at": "2026-11-24T23:43:02Z",
+              "decision": {
+                "action": "buy",
+                "position_size": 10,
+                "ticker": "EMBC",
+                "time_horizon": "medium"
+              },
+              "expires_at": "2026-11-25T00:13:02Z",
+              "finish_reason": "stop",
+              "http_status": 200,
+              "id": "20261124-ai_llama_32_3b",
+              "seconds": 104.6,
+              "started_at": "2026-11-24T23:43:16Z",
+              "status": "answered",
+              "timings": {
+                "cache_n": 27.0,
+                "predicted_ms": 19130.1,
+                "predicted_n": 114.0,
+                "predicted_per_second": 5.91,
+                "prompt_ms": 85471.54,
+                "prompt_n": 2913.0,
+                "prompt_per_second": 34.08,
+                "total_seconds": 104.6
+              },
+              "usage": {
+                "completion_tokens": 114,
+                "prompt_tokens": 2940,
+                "total_tokens": 3054
+              }
+            }
+          ],
+          "llama_cpp": {
+            "archive_sha256": "9c58ebcd5a704e879cfadf2bbcb1fb1ec8ad4a5bec761fc58b3515864dd5e37a",
+            "build": "b12387-a956a852c",
+            "commit": "a956a852c9c8bc1fb07206364838ddef299178c0",
+            "tag": "b12387"
+          },
+          "machine": "ubuntu 24.04, 4 vCPU, 15.6 GiB",
+          "model": "llama-3.2-3b-instruct-q8_0",
+          "run": {
+            "attempt": "1",
+            "event": "workflow_dispatch",
+            "id": "45488998795",
+            "url": "https://github.com/alphabazaar/ai-league-runner/actions/runs/45488998795"
+          },
+          "self_test": {
+            "completion_per_second": 8.78,
+            "completion_tokens": 86,
+            "detail": "a JSON decision; a typical day's prompt would take about 4 min",
+            "finish_reason": "stop",
+            "ok": true,
+            "prompt_per_second": 40.71,
+            "prompt_tokens": 242,
+            "seconds": 15.6
+          },
+          "started_at": "2026-11-24T21:14:42Z"
+        },
+        {
+          "ended_at": "2026-11-24T23:33:01Z",
+          "exit": 0,
+          "gguf": {
+            "file": "microsoft_Phi-4-mini-instruct-Q8_0.gguf",
+            "repo": "bartowski/microsoft_Phi-4-mini-instruct-GGUF",
+            "revision": "7ff82c2aaa4dde30121698a973765f39be5288c0",
+            "sha256": "a12f242c4ee379b9da91673e5d78b30bfacfe4fd86a0b2259d2ecad5d93cb6c7",
+            "size": 4084611456
+          },
+          "heartbeat_only": false,
+          "heartbeats": [
+            {
+              "accepted": true,
+              "activated": true,
+              "at": "2026-11-24T21:15:23Z",
+              "problem": null,
+              "self_test_ok": true,
+              "status": 200
+            },
+            {
+              "accepted": true,
+              "activated": true,
+              "at": "2026-11-24T21:30:31Z",
+              "problem": null,
+              "self_test_ok": true,
+              "status": 200
+            },
+            {
+              "accepted": true,
+              "activated": true,
+              "at": "2026-11-24T21:45:38Z",
+              "problem": null,
+              "self_test_ok": true,
+              "status": 200
+            },
+            {
+              "accepted": true,
+              "activated": true,
+              "at": "2026-11-24T22:00:48Z",
+              "problem": null,
+              "self_test_ok": true,
+              "status": 200
+            },
+            {
+              "accepted": true,
+              "activated": true,
+              "at": "2026-11-24T22:15:56Z",
+              "problem": null,
+              "self_test_ok": true,
+              "status": 200
+            },
+            {
+              "accepted": true,
+              "activated": true,
+              "at": "2026-11-24T22:31:03Z",
+              "problem": null,
+              "self_test_ok": true,
+              "status": 200
+            },
+            {
+              "accepted": true,
+              "activated": true,
+              "at": "2026-11-24T22:46:12Z",
+              "problem": null,
+              "self_test_ok": true,
+              "status": 200
+            },
+            {
+              "accepted": true,
+              "activated": true,
+              "at": "2026-11-24T23:01:19Z",
+              "problem": null,
+              "self_test_ok": true,
+              "status": 200
+            },
+            {
+              "accepted": true,
+              "activated": true,
+              "at": "2026-11-24T23:16:25Z",
+              "problem": null,
+              "self_test_ok": true,
+              "status": 200
+            },
+            {
+              "accepted": true,
+              "activated": true,
+              "at": "2026-11-24T23:33:01Z",
+              "problem": null,
+              "self_test_ok": true,
+              "status": 200
+            }
+          ],
+          "jobs": [
+            {
+              "bot": "ai_phi_4_mini",
+              "created_at": "2026-11-24T23:31:05Z",
+              "decision": {
+                "action": "buy",
+                "position_size": 10,
+                "ticker": "ULCC",
+                "time_horizon": "medium"
+              },
+              "expires_at": "2026-11-25T00:01:05Z",
+              "finish_reason": "stop",
+              "http_status": 200,
+              "id": "20261124-ai_phi_4_mini",
+              "seconds": 88.3,
+              "started_at": "2026-11-24T23:31:13Z",
+              "status": "answered",
+              "timings": {
+                "cache_n": 3.0,
+                "predicted_ms": 24703.83,
+                "predicted_n": 100.0,
+                "predicted_per_second": 4.01,
+                "prompt_ms": 63570.71,
+                "prompt_n": 2863.0,
+                "prompt_per_second": 45.04,
+                "total_seconds": 88.3
+              },
+              "usage": {
+                "completion_tokens": 100,
+                "prompt_tokens": 2866,
+                "total_tokens": 2966
+              }
+            }
+          ],
+          "llama_cpp": {
+            "archive_sha256": "9c58ebcd5a704e879cfadf2bbcb1fb1ec8ad4a5bec761fc58b3515864dd5e37a",
+            "build": "b12387-a956a852c",
+            "commit": "a956a852c9c8bc1fb07206364838ddef299178c0",
+            "tag": "b12387"
+          },
+          "machine": "ubuntu 24.04, 4 vCPU, 15.3 GiB",
+          "model": "microsoft_phi-4-mini-instruct-q8_0",
+          "run": {
+            "attempt": "1",
+            "event": "workflow_dispatch",
+            "id": "45488998795",
+            "url": "https://github.com/alphabazaar/ai-league-runner/actions/runs/45488998795"
+          },
+          "self_test": {
+            "completion_per_second": 7.37,
+            "completion_tokens": 104,
+            "detail": "a JSON decision; a typical day's prompt would take about 4 min",
+            "finish_reason": "stop",
+            "ok": true,
+            "prompt_per_second": 53.74,
+            "prompt_tokens": 208,
+            "seconds": 17.8
+          },
+          "started_at": "2026-11-24T21:15:00Z"
+        },
+        {
+          "ended_at": "2026-11-24T23:46:14Z",
+          "exit": 0,
+          "gguf": {
+            "file": "MiniCPM5-2B-Q8_0.gguf",
+            "repo": "openbmb/MiniCPM5-2B-GGUF",
+            "revision": "8ad02b786ab81e33d465e1c80562640c55ab2877",
+            "sha256": "c5415f8989bf88a8288f1b55a3cc371af53c07b0faa220a63bd7a990cfaba078",
+            "size": 2679710688
+          },
+          "heartbeat_only": false,
+          "heartbeats": [
+            {
+              "accepted": true,
+              "activated": true,
+              "at": "2026-11-24T21:17:53Z",
+              "problem": null,
+              "self_test_ok": true,
+              "status": 200
+            },
+            {
+              "accepted": true,
+              "activated": true,
+              "at": "2026-11-24T21:33:00Z",
+              "problem": null,
+              "self_test_ok": true,
+              "status": 200
+            },
+            {
+              "accepted": true,
+              "activated": true,
+              "at": "2026-11-24T21:48:08Z",
+              "problem": null,
+              "self_test_ok": true,
+              "status": 200
+            },
+            {
+              "accepted": true,
+              "activated": true,
+              "at": "2026-11-24T22:03:16Z",
+              "problem": null,
+              "self_test_ok": true,
+              "status": 200
+            },
+            {
+              "accepted": true,
+              "activated": true,
+              "at": "2026-11-24T22:18:22Z",
+              "problem": null,
+              "self_test_ok": true,
+              "status": 200
+            },
+            {
+              "accepted": true,
+              "activated": true,
+              "at": "2026-11-24T22:33:31Z",
+              "problem": null,
+              "self_test_ok": true,
+              "status": 200
+            },
+            {
+              "accepted": true,
+              "activated": true,
+              "at": "2026-11-24T22:48:38Z",
+              "problem": null,
+              "self_test_ok": true,
+              "status": 200
+            },
+            {
+              "accepted": true,
+              "activated": true,
+              "at": "2026-11-24T23:03:45Z",
+              "problem": null,
+              "self_test_ok": true,
+              "status": 200
+            },
+            {
+              "accepted": true,
+              "activated": true,
+              "at": "2026-11-24T23:18:52Z",
+              "problem": null,
+              "self_test_ok": true,
+              "status": 200
+            },
+            {
+              "accepted": true,
+              "activated": true,
+              "at": "2026-11-24T23:34:00Z",
+              "problem": null,
+              "self_test_ok": true,
+              "status": 200
+            }
+          ],
+          "jobs": [
+            {
+              "bot": "ai_minicpm5_2b",
+              "created_at": "2026-11-24T23:38:02Z",
+              "decision": {
+                "action": "buy",
+                "position_size": 10,
+                "ticker": "ULCC",
+                "time_horizon": "medium"
+              },
+              "expires_at": "2026-11-25T00:08:02Z",
+              "finish_reason": "stop",
+              "http_status": 200,
+              "id": "20261124-ai_minicpm5_2b",
+              "seconds": 451.5,
+              "started_at": "2026-11-24T23:38:22Z",
+              "status": "answered",
+              "timings": {
+                "cache_n": 6.0,
+                "predicted_ms": 411119.71,
+                "predicted_n": 3070.0,
+                "predicted_per_second": 7.46,
+                "prompt_ms": 40337.37,
+                "prompt_n": 2953.0,
+                "prompt_per_second": 73.21,
+                "reasoning_chars": 11765.0,
+                "total_seconds": 451.5
+              },
+              "usage": {
+                "completion_tokens": 3070,
+                "prompt_tokens": 2959,
+                "total_tokens": 6029
+              }
+            }
+          ],
+          "llama_cpp": {
+            "archive_sha256": "9c58ebcd5a704e879cfadf2bbcb1fb1ec8ad4a5bec761fc58b3515864dd5e37a",
+            "build": "b12387-a956a852c",
+            "commit": "a956a852c9c8bc1fb07206364838ddef299178c0",
+            "tag": "b12387"
+          },
+          "machine": "ubuntu 24.04, 4 vCPU, 15.3 GiB",
+          "model": "minicpm5-2b-q8_0",
+          "run": {
+            "attempt": "1",
+            "event": "workflow_dispatch",
+            "id": "45488998795",
+            "url": "https://github.com/alphabazaar/ai-league-runner/actions/runs/45488998795"
+          },
+          "self_test": {
+            "completion_per_second": 11.12,
+            "completion_tokens": 2032,
+            "detail": "a JSON decision; a typical day's prompt would take about 4 min",
+            "finish_reason": "stop",
+            "ok": true,
+            "prompt_per_second": 90.12,
+            "prompt_tokens": 226,
+            "seconds": 185.1
+          },
+          "started_at": "2026-11-24T21:14:43Z"
+        },
+        {
+          "ended_at": "2026-11-24T23:41:57Z",
+          "exit": 0,
+          "gguf": {
+            "file": "Ministral-3-8B-Instruct-2512-Q4_K_M.gguf",
+            "repo": "mistralai/Ministral-3-8B-Instruct-2512-GGUF",
+            "revision": "0102285ad796bd99af90f58de616092e5630e970",
+            "sha256": "33e7a72cf5e6e2cfc2f2847075acc013d68bba023e35310cef86b5cf8fdca761",
+            "size": 5198911904
+          },
+          "heartbeat_only": false,
+          "heartbeats": [
+            {
+              "accepted": true,
+              "activated": true,
+              "at": "2026-11-24T21:15:53Z",
+              "problem": null,
+              "self_test_ok": true,
+              "status": 200
+            },
+            {
+              "accepted": true,
+              "activated": true,
+              "at": "2026-11-24T21:30:58Z",
+              "problem": null,
+              "self_test_ok": true,
+              "status": 200
+            },
+            {
+              "accepted": true,
+              "activated": true,
+              "at": "2026-11-24T21:46:03Z",
+              "problem": null,
+              "self_test_ok": true,
+              "status": 200
+            },
+            {
+              "accepted": true,
+              "activated": true,
+              "at": "2026-11-24T22:01:09Z",
+              "problem": null,
+              "self_test_ok": true,
+              "status": 200
+            },
+            {
+              "accepted": true,
+              "activated": true,
+              "at": "2026-11-24T22:16:16Z",
+              "problem": null,
+              "self_test_ok": true,
+              "status": 200
+            },
+            {
+              "accepted": true,
+              "activated": true,
+              "at": "2026-11-24T22:31:21Z",
+              "problem": null,
+              "self_test_ok": true,
+              "status": 200
+            },
+            {
+              "accepted": true,
+              "activated": true,
+              "at": "2026-11-24T22:46:27Z",
+              "problem": null,
+              "self_test_ok": true,
+              "status": 200
+            },
+            {
+              "accepted": true,
+              "activated": true,
+              "at": "2026-11-24T23:01:32Z",
+              "problem": null,
+              "self_test_ok": true,
+              "status": 200
+            },
+            {
+              "accepted": true,
+              "activated": true,
+              "at": "2026-11-24T23:16:37Z",
+              "problem": null,
+              "self_test_ok": true,
+              "status": 200
+            },
+            {
+              "accepted": true,
+              "activated": true,
+              "at": "2026-11-24T23:31:42Z",
+              "problem": null,
+              "self_test_ok": true,
+              "status": 200
+            }
+          ],
+          "jobs": [
+            {
+              "bot": "ai_ministral_3_8b",
+              "created_at": "2026-11-24T23:39:02Z",
+              "decision": {
+                "action": "buy",
+                "position_size": 10,
+                "ticker": "ULCC",
+                "time_horizon": "short"
+              },
+              "expires_at": "2026-11-25T00:09:02Z",
+              "finish_reason": "stop",
+              "http_status": 200,
+              "id": "20261124-ai_ministral_3_8b",
+              "seconds": 151.6,
+              "started_at": "2026-11-24T23:39:05Z",
+              "status": "answered",
+              "timings": {
+                "cache_n": 4.0,
+                "predicted_ms": 38773.56,
+                "predicted_n": 105.0,
+                "predicted_per_second": 2.68,
+                "prompt_ms": 112832.43,
+                "prompt_n": 3234.0,
+                "prompt_per_second": 28.66,
+                "total_seconds": 151.6
+              },
+              "usage": {
+                "completion_tokens": 105,
+                "prompt_tokens": 3238,
+                "total_tokens": 3343
+              }
+            }
+          ],
+          "llama_cpp": {
+            "archive_sha256": "9c58ebcd5a704e879cfadf2bbcb1fb1ec8ad4a5bec761fc58b3515864dd5e37a",
+            "build": "b12387-a956a852c",
+            "commit": "a956a852c9c8bc1fb07206364838ddef299178c0",
+            "tag": "b12387"
+          },
+          "machine": "ubuntu 24.04, 4 vCPU, 15.3 GiB",
+          "model": "ministral-3-8b-instruct-2512-q4_k_m",
+          "run": {
+            "attempt": "1",
+            "event": "workflow_dispatch",
+            "id": "45488998795",
+            "url": "https://github.com/alphabazaar/ai-league-runner/actions/runs/45488998795"
+          },
+          "self_test": {
+            "completion_per_second": 4.05,
+            "completion_tokens": 125,
+            "detail": "a JSON decision; a typical day's prompt would take about 6 min",
+            "finish_reason": "stop",
+            "ok": true,
+            "prompt_per_second": 30.82,
+            "prompt_tokens": 228,
+            "seconds": 38.0
+          },
+          "started_at": "2026-11-24T21:15:10Z"
+        },
+        {
+          "ended_at": "2026-11-24T23:55:01Z",
+          "exit": 0,
+          "gguf": {
+            "file": "NVIDIA-Nemotron-3.5-Bolt-E4B-Q8_0.gguf",
+            "repo": "ggml-org/NVIDIA-Nemotron-3.5-Bolt-E4B-GGUF",
+            "revision": "97f1ffa12ee2af5e1e7804a65ea4c777493dfa4c",
+            "sha256": "64504effb9a71a991e487ac4e4cf827485e78bf577efb0a6edf67ce7e1ba84a8",
+            "size": 8031245312
+          },
+          "heartbeat_only": false,
+          "heartbeats": [
+            {
+              "accepted": true,
+              "activated": true,
+              "at": "2026-11-24T21:21:19Z",
+              "problem": null,
+              "self_test_ok": true,
+              "status": 200
+            },
+            {
+              "accepted": true,
+              "activated": true,
+              "at": "2026-11-24T21:36:28Z",
+              "problem": null,
+              "self_test_ok": true,
+              "status": 200
+            },
+            {
+              "accepted": true,
+              "activated": true,
+              "at": "2026-11-24T21:51:37Z",
+              "problem": null,
+              "self_test_ok": true,
+              "status": 200
+            },
+            {
+              "accepted": true,
+              "activated": true,
+              "at": "2026-11-24T22:06:46Z",
+              "problem": null,
+              "self_test_ok": true,
+              "status": 200
+            },
+            {
+              "accepted": true,
+              "activated": true,
+              "at": "2026-11-24T22:21:55Z",
+              "problem": null,
+              "self_test_ok": true,
+              "status": 200
+            },
+            {
+              "accepted": true,
+              "activated": true,
+              "at": "2026-11-24T22:37:04Z",
+              "problem": null,
+              "self_test_ok": true,
+              "status": 200
+            },
+            {
+              "accepted": true,
+              "activated": true,
+              "at": "2026-11-24T22:52:12Z",
+              "problem": null,
+              "self_test_ok": true,
+              "status": 200
+            },
+            {
+              "accepted": true,
+              "activated": true,
+              "at": "2026-11-24T23:07:20Z",
+              "problem": null,
+              "self_test_ok": true,
+              "status": 200
+            },
+            {
+              "accepted": true,
+              "activated": true,
+              "at": "2026-11-24T23:22:28Z",
+              "problem": null,
+              "self_test_ok": true,
+              "status": 200
+            },
+            {
+              "accepted": true,
+              "activated": true,
+              "at": "2026-11-24T23:37:37Z",
+              "problem": null,
+              "self_test_ok": true,
+              "status": 200
+            },
+            {
+              "accepted": true,
+              "activated": true,
+              "at": "2026-11-24T23:55:01Z",
+              "problem": null,
+              "self_test_ok": true,
+              "status": 200
+            }
+          ],
+          "jobs": [
+            {
+              "bot": "ai_nemotron_35_bolt",
+              "created_at": "2026-11-24T23:45:03Z",
+              "decision": {
+                "action": "buy",
+                "position_size": 12,
+                "ticker": "ACHC",
+                "time_horizon": "medium"
+              },
+              "expires_at": "2026-11-25T00:15:00Z",
+              "finish_reason": "stop",
+              "http_status": 200,
+              "id": "20261124-ai_nemotron_35_bolt",
+              "seconds": 558.2,
+              "started_at": "2026-11-24T23:45:22Z",
+              "status": "answered",
+              "timings": {
+                "cache_n": 0.0,
+                "predicted_ms": 449775.64,
+                "predicted_n": 1372.0,
+                "predicted_per_second": 3.05,
+                "prompt_ms": 108359.96,
+                "prompt_n": 3183.0,
+                "prompt_per_second": 29.37,
+                "reasoning_chars": 3767.0,
+                "total_seconds": 558.2
+              },
+              "usage": {
+                "completion_tokens": 1372,
+                "prompt_tokens": 3183,
+                "total_tokens": 4555
+              }
+            }
+          ],
+          "llama_cpp": {
+            "archive_sha256": "9c58ebcd5a704e879cfadf2bbcb1fb1ec8ad4a5bec761fc58b3515864dd5e37a",
+            "build": "b12387-a956a852c",
+            "commit": "a956a852c9c8bc1fb07206364838ddef299178c0",
+            "tag": "b12387"
+          },
+          "machine": "ubuntu 24.04, 4 vCPU, 15.6 GiB",
+          "model": "nvidia-nemotron-3.5-bolt-e4b-q8_0",
+          "run": {
+            "attempt": "1",
+            "event": "workflow_dispatch",
+            "id": "45488998795",
+            "url": "https://github.com/alphabazaar/ai-league-runner/actions/runs/45488998795"
+          },
+          "self_test": {
+            "completion_per_second": 3.19,
+            "completion_tokens": 669,
+            "detail": "a JSON decision; a typical day's prompt would take about 8 min",
+            "finish_reason": "stop",
+            "ok": true,
+            "prompt_per_second": 28.49,
+            "prompt_tokens": 245,
+            "seconds": 217.9
+          },
+          "started_at": "2026-11-24T21:17:36Z"
+        },
+        {
+          "ended_at": "2026-11-24T21:25:31Z",
+          "exit": 0,
+          "gguf": {
+            "file": "Qwen3.5-4B-Q4_K_M.gguf",
+            "repo": "ggml-org/Qwen3.5-4B-GGUF",
+            "revision": "8d43d974efc48399cb58957ad49c8b26bf5a109c",
+            "sha256": "217002fa8008ef4fc6d548353a3aebef055a96e6ff8e0e2c0953ef8254a89c14",
+            "size": 3032091584
+          },
+          "heartbeat_only": false,
+          "heartbeats": [
+            {
+              "accepted": false,
+              "activated": true,
+              "at": "2026-11-24T21:25:31Z",
+              "problem": "the model's self-test on the runner didn't pass",
+              "self_test_ok": false,
+              "status": 200
+            }
+          ],
+          "jobs": [],
+          "llama_cpp": {
+            "archive_sha256": "9c58ebcd5a704e879cfadf2bbcb1fb1ec8ad4a5bec761fc58b3515864dd5e37a",
+            "build": "b12387-a956a852c",
+            "commit": "a956a852c9c8bc1fb07206364838ddef299178c0",
+            "tag": "b12387"
+          },
+          "machine": "ubuntu 24.04, 4 vCPU, 15.3 GiB",
+          "model": "qwen3.5-4b-q4_k_m",
+          "run": {
+            "attempt": "1",
+            "event": "workflow_dispatch",
+            "id": "45488998795",
+            "url": "https://github.com/alphabazaar/ai-league-runner/actions/runs/45488998795"
+          },
+          "self_test": {
+            "completion_per_second": 6.43,
+            "completion_tokens": 4096,
+            "detail": "the reply didn't finish (length)",
+            "finish_reason": "length",
+            "ok": false,
+            "prompt_per_second": 62.72,
+            "prompt_tokens": 239,
+            "seconds": 640.3
+          },
+          "started_at": "2026-11-24T21:14:45Z"
+        },
+        {
+          "ended_at": "2026-11-24T23:33:29Z",
+          "exit": 0,
+          "gguf": {
+            "file": "SmolLM3-Q8_0.gguf",
+            "repo": "ggml-org/SmolLM3-3B-GGUF",
+            "revision": "4965cb60b150737b68a0408c36aeefb65078f894",
+            "sha256": "8aa8cc74656137174a1988d993b00828e65a86fd68773412b632a75aa1373248",
+            "size": 3275574624
+          },
+          "heartbeat_only": false,
+          "heartbeats": [
+            {
+              "accepted": true,
+              "activated": true,
+              "at": "2026-11-24T21:15:58Z",
+              "problem": null,
+              "self_test_ok": true,
+              "status": 200
+            },
+            {
+              "accepted": true,
+              "activated": true,
+              "at": "2026-11-24T21:31:03Z",
+              "problem": null,
+              "self_test_ok": true,
+              "status": 200
+            },
+            {
+              "accepted": true,
+              "activated": true,
+              "at": "2026-11-24T21:46:08Z",
+              "problem": null,
+              "self_test_ok": true,
+              "status": 200
+            },
+            {
+              "accepted": true,
+              "activated": true,
+              "at": "2026-11-24T22:01:14Z",
+              "problem": null,
+              "self_test_ok": true,
+              "status": 200
+            },
+            {
+              "accepted": true,
+              "activated": true,
+              "at": "2026-11-24T22:16:19Z",
+              "problem": null,
+              "self_test_ok": true,
+              "status": 200
+            },
+            {
+              "accepted": true,
+              "activated": true,
+              "at": "2026-11-24T22:31:25Z",
+              "problem": null,
+              "self_test_ok": true,
+              "status": 200
+            },
+            {
+              "accepted": true,
+              "activated": true,
+              "at": "2026-11-24T22:46:31Z",
+              "problem": null,
+              "self_test_ok": true,
+              "status": 200
+            },
+            {
+              "accepted": true,
+              "activated": true,
+              "at": "2026-11-24T23:01:37Z",
+              "problem": null,
+              "self_test_ok": true,
+              "status": 200
+            },
+            {
+              "accepted": true,
+              "activated": true,
+              "at": "2026-11-24T23:16:42Z",
+              "problem": null,
+              "self_test_ok": true,
+              "status": 200
+            },
+            {
+              "accepted": true,
+              "activated": true,
+              "at": "2026-11-24T23:31:46Z",
+              "problem": null,
+              "self_test_ok": true,
+              "status": 200
+            }
+          ],
+          "jobs": [
+            {
+              "bot": "ai_smollm3_3b",
+              "created_at": "2026-11-24T23:32:02Z",
+              "decision": {
+                "action": "buy",
+                "position_size": 10,
+                "ticker": "EMBC",
+                "time_horizon": "medium"
+              },
+              "expires_at": "2026-11-25T00:02:02Z",
+              "finish_reason": "stop",
+              "http_status": 200,
+              "id": "20261124-ai_smollm3_3b",
+              "seconds": 61.5,
+              "started_at": "2026-11-24T23:32:07Z",
+              "status": "answered",
+              "timings": {
+                "cache_n": 39.0,
+                "predicted_ms": 23253.37,
+                "predicted_n": 134.0,
+                "predicted_per_second": 5.72,
+                "prompt_ms": 38258.66,
+                "prompt_n": 2907.0,
+                "prompt_per_second": 75.98,
+                "total_seconds": 61.5
+              },
+              "usage": {
+                "completion_tokens": 134,
+                "prompt_tokens": 2946,
+                "total_tokens": 3080
+              }
+            }
+          ],
+          "llama_cpp": {
+            "archive_sha256": "9c58ebcd5a704e879cfadf2bbcb1fb1ec8ad4a5bec761fc58b3515864dd5e37a",
+            "build": "b12387-a956a852c",
+            "commit": "a956a852c9c8bc1fb07206364838ddef299178c0",
+            "tag": "b12387"
+          },
+          "machine": "ubuntu 24.04, 4 vCPU, 15.3 GiB",
+          "model": "smollm3-q8_0",
+          "run": {
+            "attempt": "1",
+            "event": "workflow_dispatch",
+            "id": "45488998795",
+            "url": "https://github.com/alphabazaar/ai-league-runner/actions/runs/45488998795"
+          },
+          "self_test": {
+            "completion_per_second": 9.05,
+            "completion_tokens": 117,
+            "detail": "a JSON decision; a typical day's prompt would take about 3 min",
+            "finish_reason": "stop",
+            "ok": true,
+            "prompt_per_second": 96.58,
+            "prompt_tokens": 252,
+            "seconds": 15.4
+          },
+          "started_at": "2026-11-24T21:15:38Z"
+        }
+      ],
+      "run_id": "45488998795",
+      "url": "https://github.com/alphabazaar/ai-league-runner/actions/runs/45488998795"
     }
   ]
 }
