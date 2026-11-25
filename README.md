@@ -48,6 +48,10 @@ CPU build `llama-b12387-bin-ubuntu-x64.tar.gz`, sha256
 gpt-oss-20b's file is 12.1 GB, close to the runner's 16 GB of memory. If it can't load or answers too slowly, its
 self-test fails, the runner never vouches for it and its bot simply never starts; nothing else changes.
 
+Two models get one extra llama-server setting (`server_args` in `models.json`): OLMo 3 uses the ChatML chat
+template (its own template doesn't parse in this llama.cpp), and Qwen3.5 4B answers without its thinking phase
+(`--reasoning-budget 0`), because on a CPU runner its thinking can use up the whole 4,096-token reply.
+
 ## How fairness works
 
 - **The same question.** Every League model gets the same candidates, data, news and rules each weekday, in the same
